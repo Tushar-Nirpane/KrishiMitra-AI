@@ -1,0 +1,80 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "leaflet/dist/leaflet.css";
+
+/* Custom glassmorphism and organic theme variables */
+@layer base {
+  body {
+    @apply bg-zinc-950 text-zinc-100 font-sans antialiased min-h-screen overflow-x-hidden selection:bg-emerald-800 selection:text-emerald-100;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(120, 113, 108, 0.08) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(16, 24, 20, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(20, 32, 26, 0.8);
+    border-color: rgba(16, 185, 129, 0.35);
+    box-shadow: 0 12px 40px 0 rgba(16, 185, 129, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .glass-nav {
+    background: rgba(9, 15, 12, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(16, 185, 129, 0.15);
+  }
+
+  .glass-input {
+    background: rgba(24, 24, 27, 0.6);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    @apply rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all;
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-[0_4px_20px_0_rgba(16,185,129,0.3)] hover:shadow-[0_6px_24px_0_rgba(16,185,129,0.45)] active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-zinc-800/80 hover:bg-zinc-700/80 text-zinc-200 border border-zinc-700/50 px-6 py-3 rounded-xl font-semibold transition-all active:scale-[0.98];
+  }
+}
+
+/* Custom styles to override Leaflet default dark backgrounds or controls */
+.leaflet-container {
+  background: #090f0c !important;
+  border-radius: 0.75rem;
+}
+
+.leaflet-bar a {
+  background-color: rgba(16, 24, 20, 0.8) !important;
+  color: #fff !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: rgba(20, 32, 26, 0.9) !important;
+}
+
+/* Smooth circular progress bar */
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
