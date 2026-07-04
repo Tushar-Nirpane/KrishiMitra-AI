@@ -1,0 +1,845 @@
+{
+  "Bacterial Leaf Blight": {
+    "crop": "Rice",
+    "disease_type": "Bacterial",
+    "scientific_name": "Xanthomonas oryzae pv. oryzae",
+    "symptoms": "Water-soaked yellow-to-white stripes on leaf margins that turn yellow-brown; leaves wilt and dry from the tip; in seedlings whole plant may wilt (kresek stage).",
+    "causes": "Bacteria spreads via irrigation water, rain splash, wind and contaminated seed/tools; favored by warm humid weather (25-34°C) and high nitrogen.",
+    "visual_detection_cues": "Long wavy yellow lesions running parallel to leaf veins starting at margins/tip, later turning grayish-white with wavy edge.",
+    "treatment_tips": [
+      "Drain field and avoid flooding",
+      "spray Copper oxychloride (0.3%) or Streptocycline (100-200 ppm) mixed with Copper oxychloride",
+      "use resistant varieties for next season."
+    ],
+    "prevention_tips": [
+      "Use certified disease-free seed",
+      "balanced NPK (avoid excess nitrogen)",
+      "maintain field drainage"
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "rice bacterial leaf blight bacterial xanthomonas oryzae pv. oryzae water-soaked yellow-to-white stripes on leaf margins that turn yellow-brown; leaves wilt and dry from the tip; in seedlings whole plant may wilt (kresek stage). bacteria spreads via irrigation water, rain splash, wind and contaminated seed/tools; favored by warm humid weather (25-34°c) and high nitrogen. long wavy yellow lesions running parallel to leaf veins starting at margins/tip, later turning grayish-white with wavy edge."
+  },
+  "Rice Blast": {
+    "crop": "Rice",
+    "disease_type": "Fungal",
+    "scientific_name": "Magnaporthe oryzae (Pyricularia oryzae)",
+    "symptoms": "Diamond/spindle shaped grey-centered spots with brown margins on leaves; node blast causes blackening and breaking of stem; neck blast causes empty panicles.",
+    "causes": "High humidity, extended leaf wetness, dense planting, excess nitrogen, temperature 25-28°C.",
+    "visual_detection_cues": "Eye/diamond-shaped lesions with grey/white center and reddish-brown border on leaf blade; blackened node or neck.",
+    "treatment_tips": [
+      "Spray Tricyclazole 75% WP (0.6 g/L) or Isoprothiolane at first symptom",
+      "repeat after 10-15 days if needed."
+    ],
+    "prevention_tips": [
+      "Use resistant varieties",
+      "avoid excess nitrogen",
+      "ensure proper spacing for airflow"
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "rice rice blast fungal magnaporthe oryzae (pyricularia oryzae) diamond/spindle shaped grey-centered spots with brown margins on leaves; node blast causes blackening and breaking of stem; neck blast causes empty panicles. high humidity, extended leaf wetness, dense planting, excess nitrogen, temperature 25-28°c. eye/diamond-shaped lesions with grey/white center and reddish-brown border on leaf blade; blackened node or neck."
+  },
+  "Sheath Blight": {
+    "crop": "Rice",
+    "disease_type": "Fungal",
+    "scientific_name": "Rhizoctonia solani",
+    "symptoms": "Oval greenish-grey water-soaked lesions on leaf sheath near water line, enlarging with irregular brown margins; lesions may girdle the sheath.",
+    "causes": "High humidity, dense canopy, excess nitrogen, standing water, temperature 28-32°C.",
+    "visual_detection_cues": "Cloud/snake-skin pattern lesions on lower leaf sheath, greyish-white center with brown border.",
+    "treatment_tips": [
+      "Spray Hexaconazole 5% SC or Validamycin at early tillering/booting stage",
+      "drain excess water."
+    ],
+    "prevention_tips": [
+      "Avoid overcrowding, maintain optimum spacing, balanced fertilization, remove infected stubble after harvest."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "rice sheath blight fungal rhizoctonia solani oval greenish-grey water-soaked lesions on leaf sheath near water line, enlarging with irregular brown margins; lesions may girdle the sheath. high humidity, dense canopy, excess nitrogen, standing water, temperature 28-32°c. cloud/snake-skin pattern lesions on lower leaf sheath, greyish-white center with brown border."
+  },
+  "Brown Spot": {
+    "crop": "Rice",
+    "disease_type": "Fungal",
+    "scientific_name": "Bipolaris oryzae (Cochliobolus miyabeanus)",
+    "symptoms": "Small circular to oval brown spots with grey/white center on leaves and grain; severe infection causes leaf blight.",
+    "causes": "Nutrient-deficient soil (especially potassium), high humidity, stressed/old seedlings.",
+    "visual_detection_cues": "Numerous small round dark-brown spots scattered across leaf surface, resembling sesame seeds.",
+    "treatment_tips": [
+      "Spray Mancozeb 0.2% or Propiconazole",
+      "apply potash fertilizer to correct deficiency."
+    ],
+    "prevention_tips": [
+      "Use healthy seed, treat seed with Carbendazim, maintain balanced soil fertility (esp",
+      "potassium & zinc)"
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "rice brown spot fungal bipolaris oryzae (cochliobolus miyabeanus) small circular to oval brown spots with grey/white center on leaves and grain; severe infection causes leaf blight. nutrient-deficient soil (especially potassium), high humidity, stressed/old seedlings. numerous small round dark-brown spots scattered across leaf surface, resembling sesame seeds."
+  },
+  "Yellow Rust (Stripe Rust)": {
+    "crop": "Wheat",
+    "disease_type": "Fungal",
+    "scientific_name": "Puccinia striiformis",
+    "symptoms": "Yellow-orange powdery pustules arranged in stripes along leaf veins; severe infection causes leaf drying and yield loss.",
+    "causes": "Cool moist weather (10-15°C), high humidity, dew, wind-borne spores.",
+    "visual_detection_cues": "Bright yellow powdery streaks in linear rows along the leaf blade, rub off as yellow powder on finger.",
+    "treatment_tips": [
+      "Spray Propiconazole 25% EC (0.1%) or Tebuconazole at first appearance",
+      "repeat after 15 days if severe."
+    ],
+    "prevention_tips": [
+      "Grow resistant varieties, timely sowing, avoid excess nitrogen, monitor field regularly during cool season."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "wheat yellow rust (stripe rust) fungal puccinia striiformis yellow-orange powdery pustules arranged in stripes along leaf veins; severe infection causes leaf drying and yield loss. cool moist weather (10-15°c), high humidity, dew, wind-borne spores. bright yellow powdery streaks in linear rows along the leaf blade, rub off as yellow powder on finger."
+  },
+  "Brown Rust (Leaf Rust)": {
+    "crop": "Wheat",
+    "disease_type": "Fungal",
+    "scientific_name": "Puccinia triticina",
+    "symptoms": "Small round orange-brown pustules scattered irregularly (not in stripes) on upper leaf surface.",
+    "causes": "Warm humid weather (15-25°C), dense crop canopy, wind dispersal of spores.",
+    "visual_detection_cues": "Round orange-brown powdery pustules randomly scattered on leaf, distinguishing it from the striped yellow rust.",
+    "treatment_tips": [
+      "Spray Propiconazole or Mancozeb at first sign",
+      "two sprays 15 days apart usually sufficient."
+    ],
+    "prevention_tips": [
+      "Plant resistant varieties, avoid late sowing, balanced fertilizer application."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "wheat brown rust (leaf rust) fungal puccinia triticina small round orange-brown pustules scattered irregularly (not in stripes) on upper leaf surface. warm humid weather (15-25°c), dense crop canopy, wind dispersal of spores. round orange-brown powdery pustules randomly scattered on leaf, distinguishing it from the striped yellow rust."
+  },
+  "Powdery Mildew": {
+    "crop": "Apple",
+    "disease_type": "Fungal",
+    "scientific_name": "Podosphaera leucotricha",
+    "symptoms": "White powdery coating on young leaves, shoots and blossoms; leaves curl and shoots become stunted.",
+    "causes": "Warm dry weather, high humidity, infected buds overwintering the fungus.",
+    "visual_detection_cues": "White felty powder on new shoot tips and leaf undersides, curled/distorted young leaves.",
+    "treatment_tips": [
+      "Spray wettable Sulphur or Myclobutanil at bud break, repeat during shoot growth."
+    ],
+    "prevention_tips": [
+      "Prune out infected shoots in dormant season, avoid excess nitrogen, ensure airflow."
+    ],
+    "severity": "Low",
+    "confidence_range": [
+      65.0,
+      84.0
+    ],
+    "feature_text": "apple powdery mildew fungal podosphaera leucotricha white powdery coating on young leaves, shoots and blossoms; leaves curl and shoots become stunted. warm dry weather, high humidity, infected buds overwintering the fungus. white felty powder on new shoot tips and leaf undersides, curled/distorted young leaves."
+  },
+  "Loose Smut": {
+    "crop": "Wheat",
+    "disease_type": "Fungal",
+    "scientific_name": "Ustilago tritici",
+    "symptoms": "Ear head replaced by black powdery mass of spores, visible at heading stage; whole grain destroyed.",
+    "causes": "Seed-borne infection, spores enter floral parts during flowering of previous crop.",
+    "visual_detection_cues": "Black soot-like powder covering the entire ear head instead of grains.",
+    "treatment_tips": [
+      "No in-season cure",
+      "rogue out and destroy infected ears before spores spread",
+      "treat seed for next season."
+    ],
+    "prevention_tips": [
+      "Use certified disease-free seed",
+      "treat seed with Carboxin or Vitavax (2-2.5 g/kg seed) before sowing."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "wheat loose smut fungal ustilago tritici ear head replaced by black powdery mass of spores, visible at heading stage; whole grain destroyed. seed-borne infection, spores enter floral parts during flowering of previous crop. black soot-like powder covering the entire ear head instead of grains."
+  },
+  "Turcicum Leaf Blight (Northern Corn Leaf Blight)": {
+    "crop": "Maize",
+    "disease_type": "Fungal",
+    "scientific_name": "Exserohilum turcicum",
+    "symptoms": "Long elliptical greyish-green to tan lesions on leaves, running parallel to leaf margin; lesions coalesce causing leaf blight.",
+    "causes": "Warm humid weather, continuous cropping, crop residue carrying spores.",
+    "visual_detection_cues": "Cigar-shaped grey-tan lesions, 2-15 cm long, on lower leaves first.",
+    "treatment_tips": [
+      "Spray Mancozeb 75% WP (0.25%) or Propiconazole at early symptom stage",
+      "repeat after 10-15 days."
+    ],
+    "prevention_tips": [
+      "Use resistant hybrids, crop rotation, destroy crop residue, avoid dense planting."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "maize turcicum leaf blight (northern corn leaf blight) fungal exserohilum turcicum long elliptical greyish-green to tan lesions on leaves, running parallel to leaf margin; lesions coalesce causing leaf blight. warm humid weather, continuous cropping, crop residue carrying spores. cigar-shaped grey-tan lesions, 2-15 cm long, on lower leaves first."
+  },
+  "Maize Common Rust": {
+    "crop": "Maize",
+    "disease_type": "Fungal",
+    "scientific_name": "Puccinia sorghi",
+    "symptoms": "Small round to elongated reddish-brown pustules scattered on both leaf surfaces.",
+    "causes": "Cool moist weather (16-23°C), high humidity, wind-borne spores.",
+    "visual_detection_cues": "Cinnamon-brown powdery pustules on both sides of the leaf, rupturing the epidermis.",
+    "treatment_tips": [
+      "Spray Mancozeb or Propiconazole if severity is high before tasseling."
+    ],
+    "prevention_tips": [
+      "Plant resistant hybrids, avoid late planting, monitor fields regularly."
+    ],
+    "severity": "Low",
+    "confidence_range": [
+      65.0,
+      84.0
+    ],
+    "feature_text": "maize maize common rust fungal puccinia sorghi small round to elongated reddish-brown pustules scattered on both leaf surfaces. cool moist weather (16-23°c), high humidity, wind-borne spores. cinnamon-brown powdery pustules on both sides of the leaf, rupturing the epidermis."
+  },
+  "Fall Armyworm": {
+    "crop": "Maize",
+    "disease_type": "Pest",
+    "scientific_name": "Spodoptera frugiperda",
+    "symptoms": "Ragged/window-pane feeding on leaves, holes in whorl, sawdust-like frass (excreta) in the funnel.",
+    "causes": "Moth lays eggs on leaves; larvae feed voraciously especially in whorl stage; favored by warm weather.",
+    "visual_detection_cues": "Skeletonized leaves with round-to-oblong holes in a row pattern; larvae with inverted 'Y' mark on head visible in whorl.",
+    "treatment_tips": [
+      "Apply Emamectin benzoate 5% SG (0.4 g/L) or Spinetoram directly into the whorl",
+      "hand-pick larvae in small fields."
+    ],
+    "prevention_tips": [
+      "Early sowing, regular scouting, use pheromone traps, encourage natural predators, intercrop with legumes."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "maize fall armyworm pest spodoptera frugiperda ragged/window-pane feeding on leaves, holes in whorl, sawdust-like frass (excreta) in the funnel. moth lays eggs on leaves; larvae feed voraciously especially in whorl stage; favored by warm weather. skeletonized leaves with round-to-oblong holes in a row pattern; larvae with inverted 'y' mark on head visible in whorl."
+  },
+  "Bacterial Blight (Angular Leaf Spot)": {
+    "crop": "Cotton",
+    "disease_type": "Bacterial",
+    "scientific_name": "Xanthomonas citri pv. malvacearum",
+    "symptoms": "Small angular water-soaked spots on leaves bound by veins, turning brown/black; black lesions on stems and bolls.",
+    "causes": "Rain splash, wind, contaminated seed, warm humid weather.",
+    "visual_detection_cues": "Angular dark spots restricted by leaf veins (not round), giving a mosaic-like pattern.",
+    "treatment_tips": [
+      "Spray Copper oxychloride (0.3%) with Streptocycline (100 ppm)",
+      "remove and destroy infected plant debris."
+    ],
+    "prevention_tips": [
+      "Use acid-delinted/treated seed, avoid overhead irrigation, crop rotation with non-host crops."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "cotton bacterial blight (angular leaf spot) bacterial xanthomonas citri pv. malvacearum small angular water-soaked spots on leaves bound by veins, turning brown/black; black lesions on stems and bolls. rain splash, wind, contaminated seed, warm humid weather. angular dark spots restricted by leaf veins (not round), giving a mosaic-like pattern."
+  },
+  "Pink Bollworm": {
+    "crop": "Cotton",
+    "disease_type": "Pest",
+    "scientific_name": "Pectinophora gossypiella",
+    "symptoms": "Rosette flowers (petals stuck together); bolls have small entry holes, damaged/pink-stained lint and seeds inside.",
+    "causes": "Moth lays eggs on squares/bolls; larvae bore inside, favored by continuous cotton cultivation and warm weather.",
+    "visual_detection_cues": "Rosetted flower petals; small dark holes on boll surface with frass; pink caterpillar found inside boll on cutting open.",
+    "treatment_tips": [
+      "Spray Profenofos 50% EC or use pheromone (gossyplure) traps",
+      "apply Emamectin benzoate if infestation is high."
+    ],
+    "prevention_tips": [
+      "Install pheromone traps early season, destroy crop residue after harvest, avoid ratoon cotton, timely sowing and uprooting after last picking."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "cotton pink bollworm pest pectinophora gossypiella rosette flowers (petals stuck together); bolls have small entry holes, damaged/pink-stained lint and seeds inside. moth lays eggs on squares/bolls; larvae bore inside, favored by continuous cotton cultivation and warm weather. rosetted flower petals; small dark holes on boll surface with frass; pink caterpillar found inside boll on cutting open."
+  },
+  "Cotton Leaf Curl Virus": {
+    "crop": "Cotton",
+    "disease_type": "Viral",
+    "scientific_name": "Cotton leaf curl virus (CLCuV), transmitted by whitefly",
+    "symptoms": "Upward/downward curling of leaves, thickened veins, leaf-like enations on the underside, stunted growth and reduced boll formation.",
+    "causes": "Spread by whitefly (Bemisia tabaci) vector; favored by hot dry weather that boosts whitefly population.",
+    "visual_detection_cues": "Leaves curled and puckered with dark green thickened veins and small leafy outgrowths (enations) on the underside.",
+    "treatment_tips": [
+      "No direct cure",
+      "control whitefly vector with Imidacloprid or Diafenthiuron sprays",
+      "remove and destroy infected plants early."
+    ],
+    "prevention_tips": [
+      "Grow tolerant varieties, install yellow sticky traps for whitefly monitoring, avoid overlapping cotton seasons."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "cotton cotton leaf curl virus viral cotton leaf curl virus (clcuv), transmitted by whitefly upward/downward curling of leaves, thickened veins, leaf-like enations on the underside, stunted growth and reduced boll formation. spread by whitefly (bemisia tabaci) vector; favored by hot dry weather that boosts whitefly population. leaves curled and puckered with dark green thickened veins and small leafy outgrowths (enations) on the underside."
+  },
+  "Early Blight": {
+    "crop": "Potato",
+    "disease_type": "Fungal",
+    "scientific_name": "Alternaria solani",
+    "symptoms": "Dark brown target-board spots with concentric rings on older leaves, causing yellowing and premature defoliation.",
+    "causes": "Warm weather with alternating dry-wet spells, plant stress, low nitrogen.",
+    "visual_detection_cues": "Circular brown lesions with concentric ring pattern, primarily on lower/older leaves.",
+    "treatment_tips": [
+      "Spray Mancozeb or Chlorothalonil at 10-day intervals."
+    ],
+    "prevention_tips": [
+      "Balanced fertilization, crop rotation, remove volunteer potato plants."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "potato early blight fungal alternaria solani dark brown target-board spots with concentric rings on older leaves, causing yellowing and premature defoliation. warm weather with alternating dry-wet spells, plant stress, low nitrogen. circular brown lesions with concentric ring pattern, primarily on lower/older leaves."
+  },
+  "Late Blight": {
+    "crop": "Potato",
+    "disease_type": "Fungal (Oomycete)",
+    "scientific_name": "Phytophthora infestans",
+    "symptoms": "Dark water-soaked patches on leaves and stem that enlarge rapidly, white mold on leaf underside in humid conditions; tubers show reddish-brown rot.",
+    "causes": "Cool wet weather, high humidity, poor drainage.",
+    "visual_detection_cues": "Irregular dark brown-black lesions with pale green border on leaves, white downy growth visible on underside in early morning.",
+    "treatment_tips": [
+      "Spray Mancozeb preventively",
+      "Metalaxyl+Mancozeb or Cymoxanil+Mancozeb curatively at first symptom."
+    ],
+    "prevention_tips": [
+      "Use certified disease-free seed tubers, earth-up soil around plants, avoid excess irrigation, destroy infected haulms before harvest."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "potato late blight fungal (oomycete) phytophthora infestans dark water-soaked patches on leaves and stem that enlarge rapidly, white mold on leaf underside in humid conditions; tubers show reddish-brown rot. cool wet weather, high humidity, poor drainage. irregular dark brown-black lesions with pale green border on leaves, white downy growth visible on underside in early morning."
+  },
+  "Tomato Leaf Curl Virus": {
+    "crop": "Tomato",
+    "disease_type": "Viral",
+    "scientific_name": "Tomato leaf curl virus, transmitted by whitefly",
+    "symptoms": "Upward curling and crinkling of leaves, yellowing between veins, stunted bushy growth, flower drop and poor fruit set.",
+    "causes": "Spread by whitefly vector; hot dry weather favors whitefly buildup.",
+    "visual_detection_cues": "Small, curled, crinkled leaves giving the plant a stunted, bushy appearance; yellow mottling between veins.",
+    "treatment_tips": [
+      "No cure once infected — remove and destroy infected plants",
+      "control whitefly with Imidacloprid or yellow sticky traps."
+    ],
+    "prevention_tips": [
+      "Use virus-resistant varieties, raise seedlings under insect-proof nylon net, control whitefly early."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "tomato tomato leaf curl virus viral tomato leaf curl virus, transmitted by whitefly upward curling and crinkling of leaves, yellowing between veins, stunted bushy growth, flower drop and poor fruit set. spread by whitefly vector; hot dry weather favors whitefly buildup. small, curled, crinkled leaves giving the plant a stunted, bushy appearance; yellow mottling between veins."
+  },
+  "Septoria Leaf Spot": {
+    "crop": "Tomato",
+    "disease_type": "Fungal",
+    "scientific_name": "Septoria lycopersici",
+    "symptoms": "Numerous small circular spots with dark margin and grey/tan center, mainly on older leaves, causing yellowing and leaf drop.",
+    "causes": "Warm humid weather, overhead watering, splashing rain.",
+    "visual_detection_cues": "Small (2-3mm) round spots with dark brown border and light grey center, tiny black specks (pycnidia) visible at center.",
+    "treatment_tips": [
+      "Spray Chlorothalonil or Mancozeb every 7-10 days",
+      "remove infected leaves."
+    ],
+    "prevention_tips": [
+      "Avoid overhead irrigation, mulch soil, rotate crops, space plants for airflow."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "tomato septoria leaf spot fungal septoria lycopersici numerous small circular spots with dark margin and grey/tan center, mainly on older leaves, causing yellowing and leaf drop. warm humid weather, overhead watering, splashing rain. small (2-3mm) round spots with dark brown border and light grey center, tiny black specks (pycnidia) visible at center."
+  },
+  "Common Scab": {
+    "crop": "Potato",
+    "disease_type": "Bacterial",
+    "scientific_name": "Streptomyces scabies",
+    "symptoms": "Rough, corky, raised or pitted brown lesions on tuber skin; does not usually affect foliage.",
+    "causes": "Alkaline/dry soil, low soil moisture during tuber formation, high soil pH.",
+    "visual_detection_cues": "Rough corky brown scab-like patches on the tuber surface (visible after harvest, not on standing crop leaves).",
+    "treatment_tips": [
+      "No cure for existing tubers",
+      "maintain consistent soil moisture during tuber bulking",
+      "lower soil pH if needed."
+    ],
+    "prevention_tips": [
+      "Use resistant varieties, avoid excess lime/alkaline amendments, maintain even irrigation, rotate crops."
+    ],
+    "severity": "Low",
+    "confidence_range": [
+      65.0,
+      84.0
+    ],
+    "feature_text": "potato common scab bacterial streptomyces scabies rough, corky, raised or pitted brown lesions on tuber skin; does not usually affect foliage. alkaline/dry soil, low soil moisture during tuber formation, high soil ph. rough corky brown scab-like patches on the tuber surface (visible after harvest, not on standing crop leaves)."
+  },
+  "Red Rot": {
+    "crop": "Sugarcane",
+    "disease_type": "Fungal",
+    "scientific_name": "Colletotrichum falcatum",
+    "symptoms": "Reddening of internal stalk tissue with white patches (cross-section), drying of leaves, sour smell from split cane.",
+    "causes": "Waterlogging, use of infected setts, warm humid weather.",
+    "visual_detection_cues": "On cutting the stalk, red discoloration with white transverse bands is visible inside; leaves show drying/wilting from top.",
+    "treatment_tips": [
+      "No effective in-field cure",
+      "remove and burn infected clumps",
+      "treat healthy setts with Carbendazim before planting next crop."
+    ],
+    "prevention_tips": [
+      "Use disease-free/resistant sett varieties, hot water treatment of setts (50°C for 2 hrs), avoid waterlogging, crop rotation."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "sugarcane red rot fungal colletotrichum falcatum reddening of internal stalk tissue with white patches (cross-section), drying of leaves, sour smell from split cane. waterlogging, use of infected setts, warm humid weather. on cutting the stalk, red discoloration with white transverse bands is visible inside; leaves show drying/wilting from top."
+  },
+  "Smut": {
+    "crop": "Sugarcane",
+    "disease_type": "Fungal",
+    "scientific_name": "Sporisorium scitamineum",
+    "symptoms": "Long black whip-like structure emerging from the growing point (shoot converts into a curved black whip covered with spores).",
+    "causes": "Airborne spores, infected setts, favored by drought stress and ratooning.",
+    "visual_detection_cues": "Distinctive black curved whip protruding from the top of the cane, covered in powdery black spore mass.",
+    "treatment_tips": [
+      "Rogue out and burn whip-bearing clumps immediately before whip ruptures",
+      "treat setts with Propiconazole or Carbendazim before planting."
+    ],
+    "prevention_tips": [
+      "Use resistant varieties, avoid ratooning infected fields, hot water treatment of setts."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "sugarcane smut fungal sporisorium scitamineum long black whip-like structure emerging from the growing point (shoot converts into a curved black whip covered with spores). airborne spores, infected setts, favored by drought stress and ratooning. distinctive black curved whip protruding from the top of the cane, covered in powdery black spore mass."
+  },
+  "Anthracnose (Fruit Rot)": {
+    "crop": "Chili",
+    "disease_type": "Fungal",
+    "scientific_name": "Colletotrichum capsici",
+    "symptoms": "Sunken circular dark lesions with concentric rings on ripe fruit, often with pinkish spore masses in center; fruit shrivels and drops.",
+    "causes": "Warm humid weather, rain splash, infected seed.",
+    "visual_detection_cues": "Sunken dark, water-soaked circular spots on the fruit with visible concentric rings and pink/orange spore dots at center.",
+    "treatment_tips": [
+      "Spray Carbendazim + Mancozeb (combi) or Copper oxychloride at 10-day intervals starting from flowering."
+    ],
+    "prevention_tips": [
+      "Use disease-free seed, avoid overhead irrigation, remove and destroy infected fruit, crop rotation."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "chili anthracnose (fruit rot) fungal colletotrichum capsici sunken circular dark lesions with concentric rings on ripe fruit, often with pinkish spore masses in center; fruit shrivels and drops. warm humid weather, rain splash, infected seed. sunken dark, water-soaked circular spots on the fruit with visible concentric rings and pink/orange spore dots at center."
+  },
+  "Chili Leaf Curl Virus": {
+    "crop": "Chili",
+    "disease_type": "Viral",
+    "scientific_name": "Chilli leaf curl virus, transmitted by whitefly",
+    "symptoms": "Upward curling, crinkling and thickening of leaves; stunted plant with bushy top, reduced flowering and fruiting.",
+    "causes": "Whitefly vector transmission, hot dry weather.",
+    "visual_detection_cues": "Small, tightly curled, leathery leaves clustered at the top of the plant giving a bushy/stunted look.",
+    "treatment_tips": [
+      "No cure — remove and destroy infected plants",
+      "control whitefly with Imidacloprid or Diafenthiuron sprays."
+    ],
+    "prevention_tips": [
+      "Grow tolerant varieties, use yellow sticky traps, raise nursery under insect-proof net, avoid planting near old infected fields."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "chili chili leaf curl virus viral chilli leaf curl virus, transmitted by whitefly upward curling, crinkling and thickening of leaves; stunted plant with bushy top, reduced flowering and fruiting. whitefly vector transmission, hot dry weather. small, tightly curled, leathery leaves clustered at the top of the plant giving a bushy/stunted look."
+  },
+  "Purple Blotch": {
+    "crop": "Onion",
+    "disease_type": "Fungal",
+    "scientific_name": "Alternaria porri",
+    "symptoms": "Small water-soaked white lesions that enlarge into purplish-brown concentric-ringed patches on leaves and seed stalks, causing leaf collapse.",
+    "causes": "Warm humid weather, overhead irrigation, dense planting.",
+    "visual_detection_cues": "Elongated lesions with purple-brown center and yellow halo, concentric zonation visible, leaf tip drying and drooping.",
+    "treatment_tips": [
+      "Spray Mancozeb 75% WP (0",
+      "25%) or Iprodione at 10-day intervals"
+    ],
+    "prevention_tips": [
+      "Avoid overhead irrigation, ensure field drainage, crop rotation, wider plant spacing."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "onion purple blotch fungal alternaria porri small water-soaked white lesions that enlarge into purplish-brown concentric-ringed patches on leaves and seed stalks, causing leaf collapse. warm humid weather, overhead irrigation, dense planting. elongated lesions with purple-brown center and yellow halo, concentric zonation visible, leaf tip drying and drooping."
+  },
+  "Downy Mildew": {
+    "crop": "Grape",
+    "disease_type": "Fungal (Oomycete)",
+    "scientific_name": "Plasmopara viticola",
+    "symptoms": "Pale yellow oily patches on upper leaf surface, white cottony fungal growth on the underside, affected berries shrivel (brown rot).",
+    "causes": "Cool wet weather, high humidity, overhead irrigation, poor canopy airflow.",
+    "visual_detection_cues": "Oily translucent yellow spots on top of leaf with white downy fungal growth visible underneath.",
+    "treatment_tips": [
+      "Spray Metalaxyl + Mancozeb or Copper oxychloride at first sign, repeat after rains."
+    ],
+    "prevention_tips": [
+      "Canopy management for airflow, avoid overhead irrigation, timely pruning, remove infected leaves/berries."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "grape downy mildew fungal (oomycete) plasmopara viticola pale yellow oily patches on upper leaf surface, white cottony fungal growth on the underside, affected berries shrivel (brown rot). cool wet weather, high humidity, overhead irrigation, poor canopy airflow. oily translucent yellow spots on top of leaf with white downy fungal growth visible underneath."
+  },
+  "Tikka Leaf Spot (Early & Late)": {
+    "crop": "Groundnut",
+    "disease_type": "Fungal",
+    "scientific_name": "Cercospora arachidicola / Cercosporidium personatum",
+    "symptoms": "Small circular brown-black spots with yellow halo on leaves, leading to defoliation in severe cases.",
+    "causes": "Warm humid weather, continuous groundnut cultivation, rain splash.",
+    "visual_detection_cues": "Round dark brown to black spots (early spot lighter brown, late spot darker/black) each with a yellow ring around it.",
+    "treatment_tips": [
+      "Spray Chlorothalonil or Mancozeb (0",
+      "2%) at 15-day intervals starting 30 days after sowing"
+    ],
+    "prevention_tips": [
+      "Crop rotation, use resistant varieties, remove crop debris after harvest, timely sowing."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "groundnut tikka leaf spot (early & late) fungal cercospora arachidicola / cercosporidium personatum small circular brown-black spots with yellow halo on leaves, leading to defoliation in severe cases. warm humid weather, continuous groundnut cultivation, rain splash. round dark brown to black spots (early spot lighter brown, late spot darker/black) each with a yellow ring around it."
+  },
+  "Collar Rot": {
+    "crop": "Groundnut",
+    "disease_type": "Fungal",
+    "scientific_name": "Aspergillus niger",
+    "symptoms": "Rotting and blackening at the collar/stem base near soil line, seedling wilts and topples over.",
+    "causes": "Infected seed, high soil temperature, poor seed quality.",
+    "visual_detection_cues": "Black sooty fungal growth at the base of stem near soil surface, wilting seedlings that snap easily at collar region.",
+    "treatment_tips": [
+      "Treat seed with Carbendazim/Thiram before sowing",
+      "drench soil with Carbendazim if detected early."
+    ],
+    "prevention_tips": [
+      "Use certified treated seed, avoid deep sowing, maintain field drainage."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "groundnut collar rot fungal aspergillus niger rotting and blackening at the collar/stem base near soil line, seedling wilts and topples over. infected seed, high soil temperature, poor seed quality. black sooty fungal growth at the base of stem near soil surface, wilting seedlings that snap easily at collar region."
+  },
+  "Yellow Mosaic Virus": {
+    "crop": "Soybean",
+    "disease_type": "Viral",
+    "scientific_name": "Mungbean yellow mosaic virus, transmitted by whitefly",
+    "symptoms": "Bright yellow mosaic patches on leaves, stunted plant growth, reduced pod formation and small distorted pods.",
+    "causes": "Whitefly vector transmission, favored by warm weather and whitefly buildup.",
+    "visual_detection_cues": "Irregular bright yellow patches mixed with green on leaves in a mosaic pattern.",
+    "treatment_tips": [
+      "No cure — rogue out infected plants early",
+      "control whitefly with Imidacloprid."
+    ],
+    "prevention_tips": [
+      "Grow tolerant varieties, early sowing to avoid peak whitefly season, use yellow sticky traps."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "soybean yellow mosaic virus viral mungbean yellow mosaic virus, transmitted by whitefly bright yellow mosaic patches on leaves, stunted plant growth, reduced pod formation and small distorted pods. whitefly vector transmission, favored by warm weather and whitefly buildup. irregular bright yellow patches mixed with green on leaves in a mosaic pattern."
+  },
+  "Rust": {
+    "crop": "Soybean",
+    "disease_type": "Fungal",
+    "scientific_name": "Phakopsora pachyrhizi",
+    "symptoms": "Small reddish-brown to tan pustules mainly on leaf underside, leaves turn yellow and drop prematurely.",
+    "causes": "Warm humid weather, wind-borne spores, dense canopy.",
+    "visual_detection_cues": "Tiny raised tan-brown pustules on the underside of leaves, gritty texture when rubbed.",
+    "treatment_tips": [
+      "Spray Hexaconazole or Tebuconazole at first sign, repeat after 15 days if needed."
+    ],
+    "prevention_tips": [
+      "Use resistant varieties, avoid late sowing, monitor fields during flowering/pod stage."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "soybean rust fungal phakopsora pachyrhizi small reddish-brown to tan pustules mainly on leaf underside, leaves turn yellow and drop prematurely. warm humid weather, wind-borne spores, dense canopy. tiny raised tan-brown pustules on the underside of leaves, gritty texture when rubbed."
+  },
+  "Panama Wilt (Fusarium Wilt)": {
+    "crop": "Banana",
+    "disease_type": "Fungal",
+    "scientific_name": "Fusarium oxysporum f.sp. cubense",
+    "symptoms": "Yellowing of older leaves starting from margin, leaves collapse and hang around pseudostem, internal stem shows dark brown vascular discoloration.",
+    "causes": "Soil-borne fungus, spreads through infected suckers/soil/water, persists in soil for years.",
+    "visual_detection_cues": "Yellowing progressing from oldest to youngest leaves, split pseudostem shows dark brown-black streaks inside.",
+    "treatment_tips": [
+      "No cure — remove and destroy infected plants including rhizome",
+      "do not replant banana in same spot for years."
+    ],
+    "prevention_tips": [
+      "Use disease-free tissue-culture plantlets, avoid waterlogging, practice long crop rotation, disinfect tools."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "banana panama wilt (fusarium wilt) fungal fusarium oxysporum f.sp. cubense yellowing of older leaves starting from margin, leaves collapse and hang around pseudostem, internal stem shows dark brown vascular discoloration. soil-borne fungus, spreads through infected suckers/soil/water, persists in soil for years. yellowing progressing from oldest to youngest leaves, split pseudostem shows dark brown-black streaks inside."
+  },
+  "Sigatoka Leaf Spot": {
+    "crop": "Banana",
+    "disease_type": "Fungal",
+    "scientific_name": "Mycosphaerella musicola / M. fijiensis",
+    "symptoms": "Small yellow streaks that enlarge into brown-black oval spots with yellow halo, coalescing to cause leaf death.",
+    "causes": "Warm humid weather, dense planting, poor drainage.",
+    "visual_detection_cues": "Parallel brown-black streaks/spots running along leaf veins that merge into large necrotic patches.",
+    "treatment_tips": [
+      "Spray Propiconazole or Mancozeb at 15-day intervals",
+      "remove and destroy heavily infected leaves."
+    ],
+    "prevention_tips": [
+      "Maintain plant spacing for airflow, remove old infected leaves regularly, balanced fertilization, improve drainage."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "banana sigatoka leaf spot fungal mycosphaerella musicola / m. fijiensis small yellow streaks that enlarge into brown-black oval spots with yellow halo, coalescing to cause leaf death. warm humid weather, dense planting, poor drainage. parallel brown-black streaks/spots running along leaf veins that merge into large necrotic patches."
+  },
+  "Anthracnose": {
+    "crop": "Mango",
+    "disease_type": "Fungal",
+    "scientific_name": "Colletotrichum gloeosporioides",
+    "symptoms": "Black irregular spots on leaves, flowers (blossom blight causing flower drop) and fruit (sunken black spots that enlarge in storage).",
+    "causes": "Warm humid weather, rain during flowering, poor orchard sanitation.",
+    "visual_detection_cues": "Irregular black-brown spots on leaves/fruit with slightly sunken centers, black shriveled flower panicles (blossom blight).",
+    "treatment_tips": [
+      "Spray Carbendazim (0",
+      "1%) or Copper oxychloride at flowering and again at fruit development stage"
+    ],
+    "prevention_tips": [
+      "Prune for airflow, remove fallen leaves/fruit, avoid overhead irrigation during flowering."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "mango anthracnose fungal colletotrichum gloeosporioides black irregular spots on leaves, flowers (blossom blight causing flower drop) and fruit (sunken black spots that enlarge in storage). warm humid weather, rain during flowering, poor orchard sanitation. irregular black-brown spots on leaves/fruit with slightly sunken centers, black shriveled flower panicles (blossom blight)."
+  },
+  "Citrus Canker": {
+    "crop": "Citrus",
+    "disease_type": "Bacterial",
+    "scientific_name": "Xanthomonas citri",
+    "symptoms": "Raised corky brown lesions with yellow halo on leaves, stems and fruit; leaves may drop, fruit gets blemished.",
+    "causes": "Rain splash, wind-driven rain, contaminated pruning tools, leaf miner injury sites.",
+    "visual_detection_cues": "Rough, raised, corky brown circular lesions with a water-soaked yellow ring around them on leaves and fruit rind.",
+    "treatment_tips": [
+      "Spray Copper oxychloride (0.3%) or Streptocycline",
+      "prune and burn infected twigs."
+    ],
+    "prevention_tips": [
+      "Control citrus leaf miner (entry point for bacteria), use windbreaks, disinfect pruning tools between plants."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "citrus citrus canker bacterial xanthomonas citri raised corky brown lesions with yellow halo on leaves, stems and fruit; leaves may drop, fruit gets blemished. rain splash, wind-driven rain, contaminated pruning tools, leaf miner injury sites. rough, raised, corky brown circular lesions with a water-soaked yellow ring around them on leaves and fruit rind."
+  },
+  "Citrus Greening (HLB)": {
+    "crop": "Citrus",
+    "disease_type": "Bacterial (Insect-transmitted)",
+    "scientific_name": "Candidatus Liberibacter spp., transmitted by psyllid",
+    "symptoms": "Blotchy yellow mottling of leaves (asymmetric across midrib), stunted growth, small lopsided bitter fruit that stays green at base.",
+    "causes": "Spread by Asian citrus psyllid; no cure once infected.",
+    "visual_detection_cues": "Yellow blotchy mottled pattern on leaves that is asymmetric on either side of midrib (distinguishes from nutrient deficiency).",
+    "treatment_tips": [
+      "No cure — remove and destroy infected trees to prevent spread",
+      "control psyllid vector with Imidacloprid."
+    ],
+    "prevention_tips": [
+      "Use certified disease-free nursery plants, monitor and control psyllid population, remove infected trees promptly."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "citrus citrus greening (hlb) bacterial (insect-transmitted) candidatus liberibacter spp., transmitted by psyllid blotchy yellow mottling of leaves (asymmetric across midrib), stunted growth, small lopsided bitter fruit that stays green at base. spread by asian citrus psyllid; no cure once infected. yellow blotchy mottled pattern on leaves that is asymmetric on either side of midrib (distinguishes from nutrient deficiency)."
+  },
+  "Apple Scab": {
+    "crop": "Apple",
+    "disease_type": "Fungal",
+    "scientific_name": "Venturia inaequalis",
+    "symptoms": "Olive-green to black velvety spots on leaves and fruit; fruit develops corky, cracked scab-like lesions.",
+    "causes": "Cool wet spring weather, overwintering spores on fallen leaves.",
+    "visual_detection_cues": "Dark olive-green to black scabby spots with feathery/velvety edges on leaf surface and fruit skin.",
+    "treatment_tips": [
+      "Spray Mancozeb or Captan at bud break, repeat at 10-day intervals through wet spring."
+    ],
+    "prevention_tips": [
+      "Remove and destroy fallen leaves in autumn, prune for airflow, use resistant varieties."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "apple apple scab fungal venturia inaequalis olive-green to black velvety spots on leaves and fruit; fruit develops corky, cracked scab-like lesions. cool wet spring weather, overwintering spores on fallen leaves. dark olive-green to black scabby spots with feathery/velvety edges on leaf surface and fruit skin."
+  },
+  "Fruit and Shoot Borer": {
+    "crop": "Brinjal",
+    "disease_type": "Pest",
+    "scientific_name": "Leucinodes orbonalis",
+    "symptoms": "Wilting of shoots (dead heart) due to larval boring; small entry holes on fruit plugged with excreta, fruit rots internally.",
+    "causes": "Moth lays eggs on shoots/fruit; larvae bore in, favored by warm humid weather and continuous cropping.",
+    "visual_detection_cues": "Wilted drooping shoot tips; round holes with frass plugging on fruit surface, larva visible inside on cutting fruit.",
+    "treatment_tips": [
+      "Remove and destroy wilted shoots/infested fruit",
+      "spray Emamectin benzoate or Spinosad at early infestation."
+    ],
+    "prevention_tips": [
+      "Install pheromone traps, clip and destroy affected shoots weekly, avoid continuous brinjal cropping in same field."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "brinjal fruit and shoot borer pest leucinodes orbonalis wilting of shoots (dead heart) due to larval boring; small entry holes on fruit plugged with excreta, fruit rots internally. moth lays eggs on shoots/fruit; larvae bore in, favored by warm humid weather and continuous cropping. wilted drooping shoot tips; round holes with frass plugging on fruit surface, larva visible inside on cutting fruit."
+  },
+  "Bacterial Wilt": {
+    "crop": "Brinjal",
+    "disease_type": "Bacterial",
+    "scientific_name": "Ralstonia solanacearum",
+    "symptoms": "Sudden wilting of whole plant despite moist soil; cut stem oozes milky bacterial ooze in water test.",
+    "causes": "Soil-borne bacteria, warm wet soil, spreads via irrigation water and infected soil/tools.",
+    "visual_detection_cues": "Rapid wilting of entire plant while still green; milky white ooze from cut stem placed in clear water (diagnostic test).",
+    "treatment_tips": [
+      "No cure — remove and destroy wilted plants immediately",
+      "drench soil around healthy plants with Copper oxychloride/Bleaching powder."
+    ],
+    "prevention_tips": [
+      "Crop rotation with non-solanaceous crops for 2-3 years, use resistant rootstock/grafted seedlings, improve drainage."
+    ],
+    "severity": "High",
+    "confidence_range": [
+      82.0,
+      97.0
+    ],
+    "feature_text": "brinjal bacterial wilt bacterial ralstonia solanacearum sudden wilting of whole plant despite moist soil; cut stem oozes milky bacterial ooze in water test. soil-borne bacteria, warm wet soil, spreads via irrigation water and infected soil/tools. rapid wilting of entire plant while still green; milky white ooze from cut stem placed in clear water (diagnostic test)."
+  },
+  "Nitrogen Deficiency": {
+    "crop": "General (Multiple Crops)",
+    "disease_type": "Nutrient Deficiency",
+    "scientific_name": "nan",
+    "symptoms": "Uniform yellowing (chlorosis) starting from older/lower leaves, stunted growth, thin weak stems.",
+    "causes": "Sandy/leached soil, insufficient fertilization, heavy rainfall washing away nitrogen.",
+    "visual_detection_cues": "Overall pale yellow-green color of older leaves first, no spots or lesions present (helps distinguish from disease).",
+    "treatment_tips": [
+      "Apply Urea or ammonium sulphate as top dressing per crop recommendation",
+      "foliar spray of 2% urea for quick recovery."
+    ],
+    "prevention_tips": [
+      "Soil testing before sowing, split nitrogen application, add organic manure/compost."
+    ],
+    "severity": "Medium",
+    "confidence_range": [
+      72.0,
+      89.0
+    ],
+    "feature_text": "general (multiple crops) nitrogen deficiency nutrient deficiency  uniform yellowing (chlorosis) starting from older/lower leaves, stunted growth, thin weak stems. sandy/leached soil, insufficient fertilization, heavy rainfall washing away nitrogen. overall pale yellow-green color of older leaves first, no spots or lesions present (helps distinguish from disease)."
+  },
+  "Potassium Deficiency": {
+    "crop": "General (Multiple Crops)",
+    "disease_type": "Nutrient Deficiency",
+    "scientific_name": "nan",
+    "symptoms": "Yellowing and scorching (browning) of leaf margins/tips on older leaves, weak stalks, poor grain/fruit filling.",
+    "causes": "Potassium-poor soil, imbalanced fertilization, sandy soils with high leaching.",
+    "visual_detection_cues": "Brown scorched/burnt appearance restricted to leaf edges while the leaf center remains green.",
+    "treatment_tips": [
+      "Apply Muriate of Potash (MOP) as per soil test recommendation."
+    ],
+    "prevention_tips": [
+      "Regular soil testing, balanced NPK fertilization, use potash-rich organic manure."
+    ],
+    "severity": "Low",
+    "confidence_range": [
+      65.0,
+      84.0
+    ],
+    "feature_text": "general (multiple crops) potassium deficiency nutrient deficiency  yellowing and scorching (browning) of leaf margins/tips on older leaves, weak stalks, poor grain/fruit filling. potassium-poor soil, imbalanced fertilization, sandy soils with high leaching. brown scorched/burnt appearance restricted to leaf edges while the leaf center remains green."
+  },
+  "Zinc Deficiency": {
+    "crop": "General (Multiple Crops)",
+    "disease_type": "Nutrient Deficiency",
+    "scientific_name": "nan",
+    "symptoms": "Interveinal chlorosis (yellowing between green veins) on young leaves, small/narrow leaves, stunted internodes (rosetting).",
+    "causes": "Alkaline/calcareous soils, excess phosphorus fertilization, sandy low-organic-matter soils.",
+    "visual_detection_cues": "Distinct green veins standing out against pale yellow leaf tissue between them, mainly on newer growth.",
+    "treatment_tips": [
+      "Foliar spray of Zinc sulphate (0",
+      "5%) or soil application per recommendation"
+    ],
+    "prevention_tips": [
+      "Soil test and apply zinc sulphate before sowing in deficient soils, add organic matter/compost."
+    ],
+    "severity": "Low",
+    "confidence_range": [
+      65.0,
+      84.0
+    ],
+    "feature_text": "general (multiple crops) zinc deficiency nutrient deficiency  interveinal chlorosis (yellowing between green veins) on young leaves, small/narrow leaves, stunted internodes (rosetting). alkaline/calcareous soils, excess phosphorus fertilization, sandy low-organic-matter soils. distinct green veins standing out against pale yellow leaf tissue between them, mainly on newer growth."
+  }
+}
