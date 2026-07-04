@@ -1,0 +1,528 @@
+{
+  "how_to_use_app": {
+    "id": 1,
+    "category": "App Usage",
+    "intent": "how_to_use_app",
+    "answer": "KrishiMitra AI helps you detect crop diseases in two ways: (1) Upload a photo of the affected leaf/plant, or (2) Use live Scan mode with your camera. After detection, I'll tell you the disease name, cause, and the exact treatment and prevention steps.",
+    "suggested_action": "show_upload_and_scan_options",
+    "sample_questions": [
+      "How do I use this app?",
+      "How does KrishiMitra AI work?",
+      "What can this app do?",
+      "Explain how to use KrishiMitra"
+    ]
+  },
+  "how_to_upload_image": {
+    "id": 2,
+    "category": "App Usage",
+    "intent": "how_to_upload_image",
+    "answer": "Tap the 'Upload Image' button, choose a clear photo of the affected leaf or plant part from your gallery, and I'll analyze it and tell you the disease and cure within seconds.",
+    "suggested_action": "open_gallery_upload",
+    "sample_questions": [
+      "How do I upload a photo?",
+      "Where do I upload the plant image?",
+      "Can I upload a picture from gallery?",
+      "How to submit crop photo for checking"
+    ]
+  },
+  "how_to_scan_crop": {
+    "id": 3,
+    "category": "App Usage",
+    "intent": "how_to_scan_crop",
+    "answer": "Tap 'Scan Crop', point your camera steadily at the affected leaf in good daylight, and hold for a few seconds. The app will analyze it live and show you the diagnosis instantly.",
+    "suggested_action": "open_camera_scan",
+    "sample_questions": [
+      "How do I scan my crop?",
+      "How does live scan work?",
+      "Can I point my camera directly at the plant?",
+      "Scan option not working"
+    ]
+  },
+  "best_photo_tips": {
+    "id": 4,
+    "category": "App Usage",
+    "intent": "best_photo_tips",
+    "answer": "For best results: take the photo in daylight (avoid harsh shadows), keep the leaf flat and in focus, fill most of the frame with the affected area, and avoid blurry or very dark images.",
+    "suggested_action": null,
+    "sample_questions": [
+      "What is the best way to take a photo for detection?",
+      "Why is my result not accurate?",
+      "How should I click the picture?",
+      "Tips for better disease detection photo"
+    ]
+  },
+  "app_language_support": {
+    "id": 5,
+    "category": "App Usage",
+    "intent": "app_language_support",
+    "answer": "Yes, KrishiMitra AI supports multiple regional languages. You can change the language from the Settings menu, and I'll respond to your questions in your selected language.",
+    "suggested_action": "open_language_settings",
+    "sample_questions": [
+      "Can I use this app in Hindi?",
+      "Does it support regional languages?",
+      "Can I get answers in Marathi?",
+      "Change app language"
+    ]
+  },
+  "no_disease_detected": {
+    "id": 6,
+    "category": "Disease Detection",
+    "intent": "no_disease_detected",
+    "answer": "If no disease was detected, your plant may be healthy, or the symptoms may be due to a nutrient deficiency, water stress, or sunburn rather than a disease. Try uploading a clearer photo, or describe the exact symptoms (spots, yellowing, curling) and I can help further.",
+    "suggested_action": null,
+    "sample_questions": [
+      "The app says my plant is healthy but leaves look odd",
+      "Why did it show no disease found?",
+      "Result says healthy, is that correct?"
+    ]
+  },
+  "disease_spreading_fear": {
+    "id": 7,
+    "category": "Disease Detection",
+    "intent": "disease_spreading_fear",
+    "answer": "Most fungal and bacterial diseases spread through rain splash, wind, irrigation water, or contact between plants, especially in humid weather. Act quickly — remove badly infected plant parts and start the recommended treatment to limit spread to nearby plants.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Will this disease spread to my whole field?",
+      "Can this disease infect other plants?",
+      "How fast does this disease spread?"
+    ]
+  },
+  "organic_treatment_request": {
+    "id": 8,
+    "category": "Disease Detection",
+    "intent": "organic_treatment_request",
+    "answer": "Yes — for many fungal issues, neem oil spray (5ml/litre), diluted cow urine, or a Trichoderma-based bio-fungicide can help. For bacterial issues, a copper-based organic spray is often allowed under organic certification. Tell me the specific disease and I'll suggest the closest organic-approved option.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Is there an organic treatment instead of chemicals?",
+      "I want a natural cure, not pesticide",
+      "Any homemade remedy for this disease?"
+    ]
+  },
+  "pesticide_safety": {
+    "id": 9,
+    "category": "Disease Detection",
+    "intent": "pesticide_safety",
+    "answer": "Always wear gloves, a mask, and full sleeves when spraying. Follow the label's 'pre-harvest interval' (PHI) — most chemical sprays require 7-15 days between the last spray and harvest. Never spray during flowering if bees are active, and avoid spraying just before rain.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Is this pesticide safe for me to spray?",
+      "How long before I can eat the harvest after spraying?",
+      "Do I need protective gear to spray this?"
+    ]
+  },
+  "dosage_question": {
+    "id": 10,
+    "category": "Disease Detection",
+    "intent": "dosage_question",
+    "answer": "Dosage depends on the specific product — always follow the rate printed on the product label. As a general guide, most sprays use 15-20 g or ml per 10-15 litres of water for a knapsack sprayer, covering roughly 1 acre with 2-3 tank-loads. Tell me the exact product name for a precise dosage.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How much medicine should I mix in water?",
+      "What is the correct dosage for spraying?",
+      "How many litres of water for one acre?"
+    ]
+  },
+  "which_fertilizer_to_use": {
+    "id": 11,
+    "category": "Fertilizer",
+    "intent": "which_fertilizer_to_use",
+    "answer": "It depends on your crop stage and soil test results. In general: apply a basal dose of DAP/SSP at sowing for phosphorus, split nitrogen (urea) into 2-3 doses during growth, and add potash (MOP) at flowering/fruiting. Get a soil test done for exact NPK recommendations.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Which fertilizer should I use for my crop?",
+      "What is the best fertilizer for wheat?",
+      "Suggest fertilizer for good yield"
+    ]
+  },
+  "how_much_fertilizer": {
+    "id": 12,
+    "category": "Fertilizer",
+    "intent": "how_much_fertilizer",
+    "answer": "General recommendation for most cereal crops is around 100-120 kg Urea, 50 kg DAP, and 25-30 kg MOP per acre, split across sowing, tillering and flowering stages — but exact quantity varies by crop and soil type. Which crop are you growing?",
+    "suggested_action": "ask_crop_name",
+    "sample_questions": [
+      "How much urea per acre?",
+      "What is the fertilizer dose for rice?",
+      "How many kg of DAP should I apply?"
+    ]
+  },
+  "organic_manure_question": {
+    "id": 13,
+    "category": "Fertilizer",
+    "intent": "organic_manure_question",
+    "answer": "Organic manure (FYM/compost) improves soil health and can supply a good part of nutrient needs — typically 8-10 tons per acre. For high-yield varieties, farmers often combine organic manure with a reduced dose of chemical fertilizer for best results.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Can I use cow dung instead of chemical fertilizer?",
+      "Is organic manure enough for good yield?",
+      "How much compost should I add?"
+    ]
+  },
+  "yellowing_leaves_deficiency": {
+    "id": 14,
+    "category": "Fertilizer",
+    "intent": "yellowing_leaves_deficiency",
+    "answer": "Uniform yellowing starting from older/lower leaves usually indicates nitrogen deficiency — apply urea as top dressing or spray 2% urea solution for quick recovery. If only leaf edges are yellow/brown, it may be potassium deficiency instead. You can also upload a photo and I'll check for you.",
+    "suggested_action": "offer_image_upload",
+    "sample_questions": [
+      "My plant leaves are turning yellow, what should I do?",
+      "Why are old leaves yellow but new ones green?",
+      "Leaves pale yellow all over"
+    ]
+  },
+  "how_often_to_water": {
+    "id": 15,
+    "category": "Irrigation",
+    "intent": "how_often_to_water",
+    "answer": "Most field crops need irrigation every 7-10 days depending on soil type and weather — sandy soils dry faster and need more frequent watering. Avoid waterlogging as it encourages root rot and fungal diseases. Which crop and soil type do you have?",
+    "suggested_action": "ask_crop_and_soil",
+    "sample_questions": [
+      "How often should I water my crop?",
+      "How much irrigation does my crop need?",
+      "When should I irrigate my field?"
+    ]
+  },
+  "drip_irrigation_benefit": {
+    "id": 16,
+    "category": "Irrigation",
+    "intent": "drip_irrigation_benefit",
+    "answer": "Drip irrigation saves 30-50% water compared to flood irrigation, reduces weed growth, and lowers humidity around the plant, which also reduces fungal disease risk. It's especially beneficial for vegetables, fruit orchards, and cotton.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Is drip irrigation good for my farm?",
+      "Should I switch to drip system?",
+      "Benefits of drip irrigation"
+    ]
+  },
+  "waterlogging_problem": {
+    "id": 17,
+    "category": "Irrigation",
+    "intent": "waterlogging_problem",
+    "answer": "Waterlogging can cause root rot and disease outbreaks. Create drainage channels to remove excess water as soon as possible, avoid further irrigation until soil dries, and monitor for yellowing leaves or wilting which can indicate root damage.",
+    "suggested_action": null,
+    "sample_questions": [
+      "My field is waterlogged, what should I do?",
+      "Excess water in field after rain",
+      "How to drain field water quickly"
+    ]
+  },
+  "weather_and_disease_risk": {
+    "id": 18,
+    "category": "Weather",
+    "intent": "weather_and_disease_risk",
+    "answer": "Warm, humid weather with prolonged leaf wetness is the biggest trigger for fungal and bacterial diseases like blight and mildew. If rain is expected, it's best to spray a preventive fungicide a day before, and avoid spraying right before rain since it washes off.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Will this weather cause disease in my crop?",
+      "Is humid weather bad for my plants?",
+      "Should I spray before the rain?"
+    ]
+  },
+  "today_weather_query": {
+    "id": 19,
+    "category": "Weather",
+    "intent": "today_weather_query",
+    "answer": "I don't have live weather data built in yet, but I'd recommend checking a weather app or the IMD (India Meteorological Department) forecast before spraying — avoid spraying if rain is expected within 4-6 hours.",
+    "suggested_action": "suggest_weather_app",
+    "sample_questions": [
+      "What's the weather today?",
+      "Will it rain tomorrow?",
+      "Is it good weather to spray pesticide today?"
+    ]
+  },
+  "crop_insurance_info": {
+    "id": 20,
+    "category": "Govt Schemes",
+    "intent": "crop_insurance_info",
+    "answer": "The Pradhan Mantri Fasal Bima Yojana (PMFBY) provides crop insurance against natural calamities, pests and diseases. You can enroll through your bank, Common Service Centre (CSC), or the PMFBY portal before the cut-off date for your crop season. If your crop is already damaged, report it to your bank/insurance company within 72 hours.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How do I get crop insurance?",
+      "What is PMFBY?",
+      "My crop was damaged, can I claim insurance?"
+    ]
+  },
+  "pm_kisan_info": {
+    "id": 21,
+    "category": "Govt Schemes",
+    "intent": "pm_kisan_info",
+    "answer": "PM-KISAN provides ₹6,000/year to eligible farmer families in three installments. You can check your status or apply at pmkisan.gov.in using your Aadhaar number, or visit your nearest Common Service Centre for help.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How do I apply for PM-KISAN?",
+      "Am I eligible for PM-KISAN scheme?",
+      "When will I get the next PM-KISAN installment?"
+    ]
+  },
+  "soil_health_card": {
+    "id": 22,
+    "category": "Govt Schemes",
+    "intent": "soil_health_card",
+    "answer": "A Soil Health Card gives your farm's nutrient status (N, P, K, pH, organic carbon) and fertilizer recommendations, issued free under a government scheme. Contact your local agriculture department office or Krishi Vigyan Kendra (KVK) to get a soil sample tested.",
+    "suggested_action": null,
+    "sample_questions": [
+      "What is a soil health card?",
+      "How do I get my soil tested for free?",
+      "Where can I check my soil nutrients?"
+    ]
+  },
+  "kisan_credit_card": {
+    "id": 23,
+    "category": "Govt Schemes",
+    "intent": "kisan_credit_card",
+    "answer": "The Kisan Credit Card (KCC) offers farmers short-term credit at subsidized interest rates for crop and allied needs. Apply at any nationalized bank or cooperative bank branch with your land records and Aadhaar card.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How do I get a Kisan Credit Card?",
+      "What is KCC loan?",
+      "Can I get low-interest farm loan?"
+    ]
+  },
+  "market_price_query": {
+    "id": 24,
+    "category": "Market",
+    "intent": "market_price_query",
+    "answer": "I don't have live mandi prices built in, but you can check current rates on the eNAM portal (enam.gov.in) or the Agmarknet website, which list daily prices from mandis across India.",
+    "suggested_action": "suggest_enam_website",
+    "sample_questions": [
+      "What is today's market price for wheat?",
+      "Where can I check mandi rates?",
+      "What price will I get for my tomato crop?"
+    ]
+  },
+  "where_to_sell": {
+    "id": 25,
+    "category": "Market",
+    "intent": "where_to_sell",
+    "answer": "Compare prices across nearby mandis using eNAM before selling, consider Farmer Producer Organizations (FPOs) for better bargaining power, and avoid distress selling right after harvest when prices are typically lowest.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Where should I sell my produce for a better price?",
+      "Should I sell at local mandi or eNAM?",
+      "How to get better price for my crop"
+    ]
+  },
+  "seed_treatment_question": {
+    "id": 26,
+    "category": "Seeds & Sowing",
+    "intent": "seed_treatment_question",
+    "answer": "Yes, seed treatment prevents many seed and soil-borne diseases. Treat seeds with a fungicide like Carbendazim or Thiram (2-3 g per kg seed) before sowing, or use Trichoderma for an organic/bio option.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Do I need to treat seeds before sowing?",
+      "How to treat seeds to prevent disease?",
+      "What is seed treatment?"
+    ]
+  },
+  "best_sowing_time": {
+    "id": 27,
+    "category": "Seeds & Sowing",
+    "intent": "best_sowing_time",
+    "answer": "Sowing time varies by crop and region — for example, wheat is typically sown early-to-mid November in North India (Rabi season), and rice is transplanted June-July (Kharif season). Which crop and region are you asking about? I can give more specific guidance.",
+    "suggested_action": "ask_crop_and_region",
+    "sample_questions": [
+      "When is the best time to sow wheat?",
+      "What is the ideal sowing season for my crop?",
+      "Am I sowing too late this year?"
+    ]
+  },
+  "seed_selection": {
+    "id": 28,
+    "category": "Seeds & Sowing",
+    "intent": "seed_selection",
+    "answer": "Choose certified seed from a reputed source, and prefer disease-resistant/tolerant varieties recommended for your region by your local agricultural university or Krishi Vigyan Kendra — this significantly reduces disease risk compared to using saved/uncertified seed.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Which variety should I plant for disease resistance?",
+      "How to choose good quality seeds?",
+      "Best disease-resistant variety for tomato"
+    ]
+  },
+  "soil_testing_importance": {
+    "id": 29,
+    "category": "Soil Health",
+    "intent": "soil_testing_importance",
+    "answer": "Soil testing tells you the exact nutrient levels and pH of your field, so you apply fertilizer efficiently instead of guessing — saving cost and improving yield. It's recommended once every 2-3 years, or before starting a new crop cycle.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Why should I get my soil tested?",
+      "Is soil testing necessary?",
+      "How often should I test my soil?"
+    ]
+  },
+  "improve_soil_health": {
+    "id": 30,
+    "category": "Soil Health",
+    "intent": "improve_soil_health",
+    "answer": "Add organic matter (compost/FYM/green manure) regularly, practice crop rotation with legumes, avoid excess chemical fertilizer, and minimize tillage where possible — these all help restore soil structure and microbial health over time.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How can I improve my soil quality?",
+      "My soil yield is decreasing every year, why?",
+      "How to make soil more fertile"
+    ]
+  },
+  "storage_advice": {
+    "id": 31,
+    "category": "Post Harvest",
+    "intent": "storage_advice",
+    "answer": "Store grain only after drying to below 12-14% moisture, use clean, dry, pest-free storage bags or bins, and consider neem leaves or approved fumigation tablets to prevent storage pests. Check stored grain periodically for signs of insects or mold.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How do I store my grain to prevent pests?",
+      "My stored wheat has insects, what should I do?",
+      "Best way to store harvested crop"
+    ]
+  },
+  "reduce_post_harvest_loss": {
+    "id": 32,
+    "category": "Post Harvest",
+    "intent": "reduce_post_harvest_loss",
+    "answer": "Harvest at the right maturity stage, handle produce gently to avoid bruising, store in a cool shaded place immediately, and sort out damaged produce before storage/transport — this significantly reduces spoilage, especially for perishables like tomato and onion.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How can I reduce losses after harvest?",
+      "My vegetables spoil quickly after picking, why?",
+      "Tips to reduce wastage of produce"
+    ]
+  },
+  "general_pest_identification": {
+    "id": 33,
+    "category": "Pest Control",
+    "intent": "general_pest_identification",
+    "answer": "Try uploading a clear photo of the pest or the damage pattern and I can help identify it. In general, holes in leaves suggest chewing insects (caterpillars/beetles), while curled/sticky leaves suggest sucking pests (aphids/whiteflies/mites).",
+    "suggested_action": "offer_image_upload",
+    "sample_questions": [
+      "There are small insects on my crop, what are they?",
+      "How do I identify which pest is attacking my plant?",
+      "Bugs eating my leaves, what should I do?"
+    ]
+  },
+  "ipm_question": {
+    "id": 34,
+    "category": "Pest Control",
+    "intent": "ipm_question",
+    "answer": "Integrated Pest Management (IPM) combines methods like pheromone traps, yellow/blue sticky traps, biological control (natural predators), resistant varieties, and crop rotation — using chemical pesticides only as a last resort. This reduces cost, resistance build-up, and environmental harm.",
+    "suggested_action": null,
+    "sample_questions": [
+      "What is integrated pest management?",
+      "How can I reduce pesticide use?",
+      "Is there a way to control pests without chemicals?"
+    ]
+  },
+  "greeting": {
+    "id": 35,
+    "category": "Greetings",
+    "intent": "greeting",
+    "answer": "Namaste! 🌾 I'm KrishiMitra AI, your farming assistant. You can ask me about crop diseases, fertilizers, irrigation, government schemes, or upload/scan a photo of your crop for instant disease detection. How can I help you today?",
+    "suggested_action": null,
+    "sample_questions": [
+      "Hi",
+      "Hello",
+      "Namaste",
+      "Hey KrishiMitra",
+      "Good morning"
+    ]
+  },
+  "thanks": {
+    "id": 36,
+    "category": "Greetings",
+    "intent": "thanks",
+    "answer": "You're welcome! Happy to help anytime. Feel free to ask if you have more questions or need to check another crop.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Thank you",
+      "Thanks a lot",
+      "That was helpful",
+      "Shukriya"
+    ]
+  },
+  "goodbye": {
+    "id": 37,
+    "category": "Greetings",
+    "intent": "goodbye",
+    "answer": "Goodbye! Take care of your crops, and come back anytime you need help with disease detection or farming advice. 🌱",
+    "suggested_action": null,
+    "sample_questions": [
+      "Bye",
+      "See you later",
+      "Ok goodbye",
+      "I'm done for now"
+    ]
+  },
+  "who_are_you": {
+    "id": 38,
+    "category": "Meta",
+    "intent": "who_are_you",
+    "answer": "I'm KrishiMitra AI, an AI-based farming assistant built to help farmers detect crop diseases and get treatment advice, along with general farming guidance. I'm not a human expert, so for critical decisions please also consult your local agriculture officer.",
+    "suggested_action": null,
+    "sample_questions": [
+      "Who are you?",
+      "What are you?",
+      "Are you a real person?",
+      "Are you an AI?"
+    ]
+  },
+  "app_accuracy_concern": {
+    "id": 39,
+    "category": "Meta",
+    "intent": "app_accuracy_concern",
+    "answer": "The AI model gives a strong first estimate based on visual symptoms, but it isn't 100% accurate in every case — especially with unclear photos or early-stage symptoms. For high-value crops or if you're unsure, it's a good idea to also consult your local Krishi Vigyan Kendra (KVK) or agriculture extension officer to confirm before large investments in treatment.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How accurate is this app's diagnosis?",
+      "Can I fully trust the disease detection result?",
+      "What if the app is wrong?"
+    ]
+  },
+  "feedback_complaint": {
+    "id": 40,
+    "category": "Meta",
+    "intent": "feedback_complaint",
+    "answer": "I'm sorry the result didn't match what you expected. Please try uploading a clearer, well-lit photo focused on the affected area for a re-check, or describe the exact symptoms to me directly. You can also use the feedback option in the app to report this case so the model can be improved.",
+    "suggested_action": "open_feedback_form",
+    "sample_questions": [
+      "The app gave wrong result",
+      "I want to report an issue",
+      "The treatment suggested didn't work"
+    ]
+  },
+  "tomato_care_general": {
+    "id": 41,
+    "category": "Crop Care",
+    "intent": "tomato_care_general",
+    "answer": "Stake or cage tomato plants for airflow, water at the base (avoid wetting leaves), mulch to prevent soil-splash diseases, and watch for early/late blight especially in humid weather — remove any spotted lower leaves promptly.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How do I take care of my tomato crop?",
+      "Tips for healthy tomato plants",
+      "Tomato plant general care"
+    ]
+  },
+  "rice_care_general": {
+    "id": 42,
+    "category": "Crop Care",
+    "intent": "rice_care_general",
+    "answer": "Maintain proper water levels (2-5 cm standing water during vegetative stage), apply balanced NPK in split doses, keep field bunds clean, and monitor regularly for blast and bacterial blight especially during humid weather.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How do I take care of my rice crop?",
+      "Tips for healthy paddy field",
+      "Rice crop general management"
+    ]
+  },
+  "cotton_care_general": {
+    "id": 43,
+    "category": "Crop Care",
+    "intent": "cotton_care_general",
+    "answer": "Monitor regularly for pink bollworm using pheromone traps, avoid water stress during flowering/boll formation, remove and destroy crop residue after the last picking, and rotate with a non-cotton crop the next season to break pest cycles.",
+    "suggested_action": null,
+    "sample_questions": [
+      "How do I take care of my cotton crop?",
+      "Tips for healthy cotton plants",
+      "Cotton crop management advice"
+    ]
+  }
+}

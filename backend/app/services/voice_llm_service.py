@@ -1,216 +1,280 @@
-import os
-from typing import Dict, Any, Optional
+"""
+voice_llm_service.py
+====================
+Uses a trained TF-IDF + Logistic Regression intent classifier
+(chatbot_classifier.pkl) and a full intent knowledge-base
+(chatbot_db.json), both generated from krishimitra_chatbot_database.json
+by train_chatbot_model.py.
+
+Inference flow
+--------------
+1. Receive user message text.
+2. Run intent classifier → top-3 intents with probabilities.
+3. Keyword pre-filter can override weak ML matches.
+4. Look up answer + suggested_action from chatbot_db.json.
+5. If OPENAI_API_KEY is present, call GPT-4o for richer answers (optional).
+6. Return reply in the user's language.
+"""
+
+import json, os, pathlib, re, logging
+from typing import Any, Dict, Optional
+
+import joblib
+import numpy as np
 from sqlalchemy.orm import Session
+
 from .. import models
-import openai
-from openai import OpenAI
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+logger = logging.getLogger(__name__)
 
-# Initialize OpenAI client if key is present
-client = None
-if OPENAI_API_KEY:
+# ── Paths ─────────────────────────────────────────────────────────────────────
+_ML_DIR      = pathlib.Path(__file__).parent.parent / "ml_models"
+_PKL         = _ML_DIR / "chatbot_classifier.pkl"
+_DB_JSON     = _ML_DIR / "chatbot_db.json"
+
+# ── Load artefacts at import time ─────────────────────────────────────────────
+_model_payload = None
+_pipeline      = None
+_le            = None
+_chatbot_db: Dict[str, Any] = {}
+
+def _load():
+    global _model_payload, _pipeline, _le, _chatbot_db
+    if _PKL.exists():
+        try:
+            _model_payload = joblib.load(_PKL)
+            _pipeline      = _model_payload["pipeline"]
+            _le            = _model_payload["label_encoder"]
+            logger.info("✅  Chatbot classifier loaded (%d intents)", len(_le.classes_))
+        except Exception as exc:
+            logger.error("Failed to load chatbot_classifier.pkl: %s", exc)
+    else:
+        logger.warning("⚠️  chatbot_classifier.pkl not found — using rule-based fallback")
+
+    if _DB_JSON.exists():
+        try:
+            with open(_DB_JSON, encoding="utf-8") as fh:
+                _chatbot_db = json.load(fh)
+            logger.info("✅  Chatbot DB loaded: %d intents", len(_chatbot_db))
+        except Exception as exc:
+            logger.error("Failed to load chatbot_db.json: %s", exc)
+
+_load()
+
+# ── Optional OpenAI client ────────────────────────────────────────────────────
+_openai_client = None
+_OPENAI_KEY    = os.getenv("OPENAI_API_KEY", "")
+if _OPENAI_KEY:
     try:
-        client = OpenAI(api_key=OPENAI_API_KEY)
-    except Exception:
-        pass
+        import openai
+        from openai import OpenAI
+        _openai_client = OpenAI(api_key=_OPENAI_KEY)
+        logger.info("✅  OpenAI client ready")
+    except Exception as exc:
+        logger.warning("OpenAI client init failed: %s", exc)
 
-# Regional translation of templates for simple agricultural voice responses
-RESPONSES = {
-    "en": {
-        "cotton_yellow": (
-            "Namaste! Based on your soil report, your Nitrogen is low ({n} ppm) and there has been "
-            "no rain for 7 days. This dry spell combined with low Nitrogen is making your cotton leaves turn yellow. "
-            "Please apply 25 kg of Urea per acre and irrigate the field. Could you upload a photo of the leaf "
-            "using the Camera tab so our AI can check for Leaf Blight?"
-        ),
-        "soil_advice": (
-            "Hello! Your soil shows N: {n} ppm, P: {p} ppm, K: {k} ppm, and pH: {ph}. "
-            "For a healthy crop, you should maintain these levels. Applying organic compost will help boost carbon."
-        ),
-        "general_hello": (
-            "Welcome to KrishiMitra! I am your voice helper. You can ask me about crop recommendations, "
-            "fertilizer dosages, or tell me about your crop health. How can I help you today?"
-        ),
-        "unknown": (
-            "I heard you. I suggest checking your soil moisture and applying organic fertilizers. "
-            "Can you upload a leaf photo or ask a specific question about your crop?"
-        )
-    },
-    "hi": {
-        "cotton_yellow": (
-            "नमस्ते! आपकी मिट्टी की रिपोर्ट के अनुसार, नाइट्रोजन कम ({n} ppm) है और 7 दिनों से "
-            "बारिश नहीं हुई है। सूखे और कम नाइट्रोजन के कारण आपके कपास के पत्ते पीले पड़ रहे हैं। "
-            "कृपया प्रति एकड़ 25 किलो यूरिया डालें और खेत की सिंचाई करें। क्या आप कैमरा टैब का उपयोग करके "
-            "पत्ते की एक फोटो अपलोड कर सकते हैं ताकि हमारी एआई बीमारी की जांच कर सके?"
-        ),
-        "soil_advice": (
-            "नमस्ते! आपकी मिट्टी की रिपोर्ट में N: {n} ppm, P: {p} ppm, K: {k} ppm, और pH: {ph} है। "
-            "फसल को स्वस्थ रखने के लिए आपको इन स्तरों को बनाए रखना चाहिए। जैविक खाद डालने से मदद मिलेगी।"
-        ),
-        "general_hello": (
-            "कृषिमित्र में आपका स्वागत है! मैं आपका वॉयस सहायक हूं। आप मुझसे फसल की सिफारिशें, "
-            "उर्वरक की खुराक के बारे में पूछ सकते हैं, या मुझे अपनी फसल के स्वास्थ्य के बारे में बता सकते हैं। मैं आपकी कैसे मदद कर सकता हूं?"
-        ),
-        "unknown": (
-            "मैंने आपकी बात सुनी। मेरा सुझाव है कि अपनी मिट्टी की नमी की जांच करें और जैविक खाद डालें। "
-            "क्या आप एक पत्ते की फोटो अपलोड कर सकते हैं या अपनी फसल के बारे में कोई विशिष्ट प्रश्न पूछ सकते हैं?"
-        )
-    },
-    "te": {
-        "cotton_yellow": (
-            "నమస్తే! మీ మట్టి నివేదిక ప్రకారం, నత్రజని (Nitrogen) తక్కువగా ({n} ppm) ఉంది మరియు 7 రోజులుగా "
-            "వర్షం లేదు. ఈ పొడి వాతావరణం మరియు తక్కువ నత్రజని వల్ల మీ పత్తి ఆకులు పసుపు రంగులోకి మారుతున్నాయి. "
-            "దయచేసి ఎకరానికి 25 కిలోల యూరియా వేసి పొలానికి నీరు పెట్టండి. ఆకు తెగులును మా AI తనిఖీ చేయడానికి "
-            "కెమెరా ట్యాబ్ ద్వారా ఫోటో అప్‌లోడ్ చేయగలరా?"
-        ),
-        "soil_advice": (
-            "నమస్తే! మీ మట్టిలో N: {n} ppm, P: {p} ppm, K: {k} ppm, మరియు pH: {ph} ఉన్నాయి. "
-            "పంట ఆరోగ్యంగా ఉండటానికి ఈ శాతం నిలబెట్టుకోవాలి. సేంద్రీయ ఎరువులు వేయడం మంచిది."
-        ),
-        "general_hello": (
-            "కృషిమిత్రకు స్వాగతం! నేను మీ వాయిస్ అసిస్టెంట్ ని. మీరు నన్ను పంటల సిఫార్సులు, ఎరువుల మోతాదుల "
-            "గురించి అడగవచ్చు. ఈరోజు మీకు నేను ఎలా సహాయం చేయగలను?"
-        ),
-        "unknown": (
-            "నేను మీ ప్రశ్నను విన్నాను. మట్టి తేమను తనిఖీ చేసి, సేంద్రీయ ఎరువులు వేయాలని సూచిస్తున్నాను. "
-            "ఆకు ఫోటోను అప్‌లోడ్ చేస్తారా లేదా పంట గురించి ఏదైనా అడుగుతారా?"
-        )
-    },
-    "mr": {
-        "cotton_yellow": (
-            "नमस्ते! तुमच्या मातीच्या अहवालानुसार, नायट्रोजन कमी ({n} ppm) आहे आणि ७ दिवसांपासून पाऊस पडलेला नाही. "
-            "या कोरड्या हवामानामुळे आणि कमी नायट्रोजनमुळे तुमच्या कापसाची पाने पिवळी पडत आहेत. कृपया प्रति एकर २५ किलो युरिया टाका "
-            "आणि शेताला पाणी द्या. पानांवरील रोगाची तपासणी करण्यासाठी कृपया कॅमेरा टॅब वापरून पानाचा फोटो अपलोड करा."
-        ),
-        "soil_advice": (
-            "नमस्ते! तुमच्या मातीच्या अहवालानुसार N: {n} ppm, P: {p} ppm, K: {k} ppm, आणि pH: {ph} आहे. "
-            "चांगल्या पिकासाठी ही पातळी राखणे आवश्यक आहे. सेंद्रिय खतांचा वापर करा."
-        ),
-        "general_hello": (
-            "कृषीमित्र मध्ये आपले स्वागत आहे! मी तुमचा वॉयस सहाय्यक आहे. तुम्ही मला पीक शिफारसी, "
-            "खतांचे प्रमाण विचारू शकता. मी तुमची कशी मदत करू शकतो?"
-        ),
-        "unknown": (
-            "मी तुमचे ऐकले आहे. मी मातीची आर्द्रता तपासण्याची आणि सेंद्रिय खते वापरण्याची शिफारस करतो. "
-            "तुम्ही पानाचा फोटो अपलोड करू शकता का किंवा तुमच्या पिकाबद्दल काही विशिष्ट प्रश्न विचारू शकता का?"
-        )
-    }
+# ── Multilingual translations for the DB answers ──────────────────────────────
+# Short prefixes/suffixes injected per-language so the answer feels natural
+_LANG_PREFIX = {
+    "hi": "नमस्ते! 🌾 ",
+    "te": "నమస్తే! 🌾 ",
+    "mr": "नमस्ते! 🌾 ",
+    "en": "",
+}
+_LANG_SUFFIX = {
+    "hi": " किसी और सहायता के लिए पूछें।",
+    "te": " ఇంకా సహాయం కావాలంటే అడగండి.",
+    "mr": " आणखी काही मदत हवी असल्यास विचारा.",
+    "en": "",
 }
 
-def transcribe_voice_bytes(audio_bytes: bytes) -> str:
-    """
-    Simulates speech-to-text transcription using OpenAI Whisper.
-    If key is not available, returns a simulated text query based on length.
-    """
-    if client:
-        try:
-            import tempfile
-            with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio:
-                temp_audio.write(audio_bytes)
-                temp_audio_path = temp_audio.name
-            
-            with open(temp_audio_path, "rb") as audio_file:
-                transcript = client.audio.transcriptions.create(
-                    model="whisper-1",
-                    file=audio_file
-                )
-                return transcript.text
-        except Exception:
-            pass
-            
-    # Mock voice transcription fallback
-    return "Why is my cotton yellow?"
+# ── Keyword override map: pattern → intent ────────────────────────────────────
+_KW_OVERRIDES = [
+    (r"\byellow\b|\bpale\b|\bpilli\b",                         "yellowing_leaves_deficiency"),
+    (r"\bcotton\b|\bkapas\b|\bkapus\b",                        "cotton_care_general"),
+    (r"\brice\b|\bpaddy\b|\bdhaan\b",                          "rice_care_general"),
+    (r"\btomato\b",                                             "tomato_care_general"),
+    (r"\bdrip\b",                                               "drip_irrigation_benefit"),
+    (r"\bwaterlog\b|\bflood\b|\bexcess water\b",                "waterlogging_problem"),
+    (r"\bpmfby\b|\binsurance\b|\bbima\b",                       "crop_insurance_info"),
+    (r"\bpm.kisan\b|\bkisan yojna\b",                          "pm_kisan_info"),
+    (r"\bkcc\b|\bkisan credit\b|\bloan\b",                     "kisan_credit_card"),
+    (r"\bsoil test\b|\bsoil health card\b|\bshc\b",            "soil_health_card"),
+    (r"\borganic\b|\bneem\b|\bbio.fungicide\b",                "organic_treatment_request"),
+    (r"\bseed treat\b|\bthiram\b|\bcarbendazim\b",             "seed_treatment_question"),
+    (r"\burea\b|\bfertilizer dose\b|\bhow much.*fertilizer\b", "how_much_fertilizer"),
+    (r"\bipm\b|\bintegrated pest\b",                           "ipm_question"),
+    (r"\bspread\b.*disease|disease.*\bspread\b",               "disease_spreading_fear"),
+    (r"\bstore\b|\bstorage\b|\bweevil\b|\bgrain pest\b",       "storage_advice"),
+    (r"\bharvest loss\b|\bpost.harvest\b|\bspoil\b",           "reduce_post_harvest_loss"),
+    (r"\baccurate\b|\btrust\b|\bwrong result\b",               "app_accuracy_concern"),
+    (r"\bhi\b|\bhello\b|\bnamaste\b|\bwelcome\b|\bhey\b",      "greeting"),
+    (r"\bthank\b|\bshukriya\b|\bdhanyavad\b",                  "thanks"),
+    (r"\bbye\b|\bgoodbye\b|\bgoodnight\b|\bsee you\b",         "goodbye"),
+    (r"\bwho are you\b|\bwhat are you\b|\bare you ai\b",       "who_are_you"),
+    (r"\bmarket price\b|\bmandi\b|\bmsp\b|\benam\b",           "market_price_query"),
+    (r"\bweather\b|\brain\b|\bhumid\b|\bspray.*rain\b",        "weather_and_disease_risk"),
+    (r"\bphoto tips\b|\bbetter.*photo\b|\bblurry\b",           "best_photo_tips"),
+    (r"\bscan\b.*crop|\bcamera\b.*scan|live scan",             "how_to_scan_crop"),
+    (r"\bupload\b.*photo|\bupload\b.*image",                   "how_to_upload_image"),
+    (r"\blanguage\b|\bhindi\b|\bmarathi\b|\bregional\b",       "app_language_support"),
+    (r"\bdosage\b|\bhow much.*mix\b|\blitre.*water\b",         "dosage_question"),
+    (r"\bpesticide.*safe\b|\bphi\b|\bharvest.*spray\b",        "pesticide_safety"),
+]
 
+def _keyword_override(msg: str) -> Optional[str]:
+    for pattern, intent in _KW_OVERRIDES:
+        if re.search(pattern, msg, re.IGNORECASE):
+            return intent
+    return None
+
+# ── Soil-context formatter ────────────────────────────────────────────────────
+def _fmt_soil_answer(answer: str, n, p, k, ph) -> str:
+    """Replace any {n}/{p}/{k}/{ph} placeholders in the answer."""
+    return (answer
+            .replace("{n}", str(round(n, 1)))
+            .replace("{p}", str(round(p, 1)))
+            .replace("{k}", str(round(k, 1)))
+            .replace("{ph}", str(round(ph, 1))))
+
+# ── Rule-based fallback (legacy responses) ────────────────────────────────────
+_LEGACY = {
+    "en": {
+        "cotton_yellow": (
+            "Namaste! Your Nitrogen is low ({n} ppm) and there has been no rain for 7 days. "
+            "This dry spell combined with low Nitrogen is making your cotton leaves turn yellow. "
+            "Apply 25 kg of Urea per acre and irrigate the field. You can also upload a leaf photo in the Camera tab for disease check."
+        ),
+        "soil_advice": (
+            "Your soil shows N: {n} ppm, P: {p} ppm, K: {k} ppm, pH: {ph}. "
+            "Apply organic compost to boost carbon and follow your soil test recommendations."
+        ),
+        "general_hello": (
+            "Welcome to KrishiMitra! Ask me about crop diseases, fertilizers, government schemes, "
+            "or upload a leaf photo for instant disease detection. How can I help?"
+        ),
+        "unknown": (
+            "I suggest checking your soil moisture and applying organic fertilizers. "
+            "Can you upload a leaf photo or ask a specific question about your crop?"
+        ),
+    },
+    "hi": {
+        "cotton_yellow": "नमस्ते! नाइट्रोजन कम ({n} ppm) है, कपास पीला पड़ रहा है। 25 किलो यूरिया प्रति एकड़ डालें।",
+        "soil_advice":   "मिट्टी में N:{n}, P:{p}, K:{k}, pH:{ph} है। जैविक खाद से सुधारें।",
+        "general_hello": "कृषिमित्र में आपका स्वागत है! फसल रोग, उर्वरक, या सरकारी योजना के बारे में पूछें।",
+        "unknown":       "मैंने सुना। मिट्टी की नमी जाँचें और पत्ते की फोटो अपलोड करें।",
+    },
+    "te": {
+        "cotton_yellow": "నమస్తే! నత్రజని తక్కువ ({n} ppm). పత్తి ఆకులు పసుపు అవుతున్నాయి. ఎకరానికి 25 కిలోల యూరియా వేయండి.",
+        "soil_advice":   "మట్టిలో N:{n}, P:{p}, K:{k}, pH:{ph}. సేంద్రీయ ఎరువు వేయండి.",
+        "general_hello": "కృషిమిత్రకు స్వాగతం! పంట తెగులు, ఎరువులు, లేదా పంట ఫోటో పంపండి.",
+        "unknown":       "మట్టి తేమ తనిఖీ చేయండి. ఆకు ఫోటో అప్‌లోడ్ చేయండి.",
+    },
+    "mr": {
+        "cotton_yellow": "नमस्ते! नायट्रोजन कमी ({n} ppm). कापूस पिवळा होत आहे. प्रति एकर 25 किलो युरिया वापरा.",
+        "soil_advice":   "मातीत N:{n}, P:{p}, K:{k}, pH:{ph}. सेंद्रिय खते वापरा.",
+        "general_hello": "कृषीमित्रमध्ये स्वागत! पीक रोग, खते किंवा सरकारी योजनांबद्दल विचारा.",
+        "unknown":       "मातीची आर्द्रता तपासा आणि पानाचा फोटो अपलोड करा.",
+    },
+}
+
+
+# ── Main inference function ───────────────────────────────────────────────────
 def get_agricultural_reasoning(
-    message: str, 
-    farmer_id: Optional[int], 
-    farm_id: Optional[int], 
-    language: str, 
-    db: Session
+    message:    str,
+    farmer_id:  Optional[int],
+    farm_id:    Optional[int],
+    language:   str,
+    db:         Session,
 ) -> Dict[str, Any]:
-    """
-    Handles LLM agricultural reasoning.
-    If OPENAI_API_KEY is available, queries GPT-4o with farmer's context.
-    Otherwise, uses the multilingual agricultural advisory rule engine.
-    """
-    lang = language.lower()
-    if lang not in RESPONSES:
-        lang = "en"
+    lang = language.lower() if language.lower() in ("en", "hi", "te", "mr") else "en"
+    msg  = message.strip()
 
-    # Default values if no database records exist
-    n_val, p_val, k_val, ph_val = 45.0, 35.0, 42.0, 6.5
-    
-    # Try to load real farmer soil data to enrich the prompt/reasoning
+    # ── Load soil context ────────────────────────────────────────────────────
+    n, p, k, ph = 45.0, 35.0, 42.0, 6.5
     if farm_id:
         farm = db.query(models.Farm).filter(models.Farm.id == farm_id).first()
         if farm:
-            n_val = farm.nitrogen
-            p_val = farm.phosphorus
-            k_val = farm.potassium
-            ph_val = farm.ph
+            n, p, k, ph = farm.nitrogen, farm.phosphorus, farm.potassium, farm.ph
     elif farmer_id:
         farmer = db.query(models.Farmer).filter(models.Farmer.id == farmer_id).first()
         if farmer and farmer.farms:
             farm = farmer.farms[0]
-            n_val = farm.nitrogen
-            p_val = farm.phosphorus
-            k_val = farm.potassium
-            ph_val = farm.ph
-            
-    msg_lower = message.lower()
+            n, p, k, ph = farm.nitrogen, farm.phosphorus, farm.potassium, farm.ph
 
-    if client:
+    # ── Optional OpenAI path ─────────────────────────────────────────────────
+    if _openai_client:
         try:
-            # Call OpenAI GPT-4o
             prompt = (
-                f"You are a friendly regional agricultural voice assistant named KrishiMitra. "
-                f"Speak in simple, regional terms for a farmer. The farmer's language preference is {lang}.\n"
-                f"Farmer's Soil Data: Nitrogen={n_val} ppm, Phosphorus={p_val} ppm, Potassium={k_val} ppm, pH={ph_val}.\n"
-                f"Weather alert: 7-day rainfall is 0mm (dry spell).\n"
-                f"Farmer asks: '{message}'.\n"
-                f"Explain the issue. If they ask about yellow cotton, connect it to low Nitrogen ({n_val} ppm) "
-                f"and dry spell. Request them to upload a photo of the leaf. Keep it short (under 4 sentences)."
+                f"You are KrishiMitra AI, a friendly agricultural assistant. "
+                f"Respond concisely in {lang} language. "
+                f"Farmer soil: N={n}, P={p}, K={k}, pH={ph}. "
+                f"Farmer asks: '{msg}'. "
+                f"Answer in under 4 sentences, in simple language suitable for a farmer."
             )
-            response = client.chat.completions.create(
+            resp = _openai_client.chat.completions.create(
                 model="gpt-4o",
-                messages=[
-                    {"role": "system", "content": "You are KrishiMitra AI, an expert agricultural advisor."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=150,
-                temperature=0.7
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=200,
+                temperature=0.7,
             )
-            reply = response.choices[0].message.content
-            suggest = None
-            if "photo" in reply.lower() or "upload" in reply.lower() or "camera" in reply.lower():
-                suggest = "request_photo"
-            return {
-                "reply": reply,
-                "suggest_action": suggest,
-                "language": lang
-            }
-        except Exception:
-            pass
+            reply   = resp.choices[0].message.content
+            suggest = "request_photo" if any(w in reply.lower() for w in ("photo", "upload", "camera", "image")) else None
+            return {"reply": reply, "suggest_action": suggest, "language": lang}
+        except Exception as exc:
+            logger.warning("OpenAI call failed: %s", exc)
 
-    # Expert mock rule-based reasoning matching user flows
-    if "cotton" in msg_lower or "yellow" in msg_lower or "कपास" in msg_lower or "పత్తి" in msg_lower or "పీలా" in msg_lower or "పసుపు" in msg_lower or "कापूस" in msg_lower or "पिवळी" in msg_lower:
-        reply = RESPONSES[lang]["cotton_yellow"].format(n=round(n_val, 1))
-        suggest = "request_photo"
-    elif "soil" in msg_lower or "report" in msg_lower or "मिट्टी" in msg_lower or "మట్టి" in msg_lower or "माती" in msg_lower:
-        reply = RESPONSES[lang]["soil_advice"].format(
-            n=round(n_val, 1), p=round(p_val, 1), k=round(k_val, 1), ph=round(ph_val, 1)
-        )
-        suggest = None
-    elif "hello" in msg_lower or "hi" in msg_lower or "namaste" in msg_lower or "नमस्ते" in msg_lower or "నమస్తే" in msg_lower:
-        reply = RESPONSES[lang]["general_hello"]
-        suggest = None
+    # ── ML classifier path ───────────────────────────────────────────────────
+    if _pipeline is not None and _chatbot_db:
+        q_lower  = msg.lower()
+
+        # 1. Keyword override (highest precision)
+        kw_intent = _keyword_override(q_lower)
+
+        # 2. ML prediction
+        proba  = _pipeline.predict_proba([q_lower])[0]
+        top_idx = int(np.argmax(proba))
+        ml_intent = _le.inverse_transform([top_idx])[0]
+        ml_conf   = float(proba[top_idx])
+
+        # Choose: keyword wins if ML confidence < 40%, otherwise prefer ML
+        intent = kw_intent if (kw_intent and ml_conf < 0.40) else ml_intent
+        # But always honour a strong keyword hit
+        if kw_intent and intent != kw_intent:
+            intent = kw_intent
+
+        info = _chatbot_db.get(intent)
+        if info:
+            raw_answer = info["answer"]
+            # Inject soil context into placeholders if present
+            answer = _fmt_soil_answer(raw_answer, n, p, k, ph)
+
+            # Add language flavour
+            prefix = _LANG_PREFIX.get(lang, "")
+            suffix = _LANG_SUFFIX.get(lang, "")
+            if lang != "en":
+                # Attach a short native note, keep the answer (it's in English from DB)
+                reply = f"{prefix}{answer}{suffix}"
+            else:
+                reply = answer
+
+            suggested_action = info.get("suggested_action")
+
+            logger.info("Chatbot: intent=%s conf=%.0f%% lang=%s", intent, ml_conf * 100, lang)
+            return {"reply": reply, "suggest_action": suggested_action, "language": lang}
+
+    # ── Legacy rule-based fallback ────────────────────────────────────────────
+    logger.warning("Chatbot: falling back to legacy rules")
+    msg_l = msg.lower()
+    res   = _LEGACY.get(lang, _LEGACY["en"])
+
+    if any(k in msg_l for k in ("cotton", "yellow", "कपास", "పత్తి", "కాటన్", "कापूस", "पिवळी", "పసుపు")):
+        reply, suggest = res["cotton_yellow"].format(n=round(n, 1)), "request_photo"
+    elif any(k in msg_l for k in ("soil", "report", "मिट्टी", "మట్టి", "माती")):
+        reply, suggest = res["soil_advice"].format(n=round(n,1), p=round(p,1), k=round(k,1), ph=round(ph,1)), None
+    elif any(k in msg_l for k in ("hello", "hi", "namaste", "नमस्ते", "నమస్తే")):
+        reply, suggest = res["general_hello"], None
     else:
-        reply = RESPONSES[lang]["unknown"]
-        suggest = None
+        reply, suggest = res["unknown"], None
 
-    return {
-        "reply": reply,
-        "suggest_action": suggest,
-        "language": lang
-    }
+    return {"reply": reply, "suggest_action": suggest, "language": lang}
