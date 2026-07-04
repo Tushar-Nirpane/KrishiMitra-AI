@@ -19,6 +19,16 @@ import {
 
 const BACKEND_URL = "http://localhost:8000";
 
+// ── Real sample image (actual photo of a diseased leaf) ─────────────────────
+const REAL_SAMPLE = {
+  name: "Tomato Early Blight",
+  filename: "tomato_early_blight.jpg",
+  imageSrc: "/sample_tomato_early_blight.jpg",
+  desc: "Real photo — Alternaria solani (Early Blight)",
+  disease: "Early Blight",
+  emoji: "🍅",
+};
+
 const MOCK_TEMPLATES = [
   {
     name: "Yellowing Cotton Leaf",
@@ -197,6 +207,15 @@ export default function CameraView({ t, lang }) {
     }
   };
 
+  // ── Real sample image ─────────────────────────────────────────────────────
+  const selectRealSample = () => {
+    stopCamera();
+    setSelectedFile({ name: REAL_SAMPLE.filename, isReal: true, imageSrc: REAL_SAMPLE.imageSrc });
+    setPreviewUrl(REAL_SAMPLE.imageSrc);
+    setDiagnosis(null);
+    setError(null);
+  };
+
   // ── Mock template ───────────────────────────────────────────────────────────
   const selectMockTemplate = (template) => {
     stopCamera();
@@ -233,6 +252,11 @@ export default function CameraView({ t, lang }) {
 
       if (selectedFile.isCaptured && capturedBlob) {
         formData.append("file", capturedBlob, selectedFile.name);
+      } else if (selectedFile.isReal) {
+        // Fetch the real sample image from /public and send as blob
+        const imgRes = await fetch(selectedFile.imageSrc);
+        const imgBlob = await imgRes.blob();
+        formData.append("file", imgBlob, selectedFile.name);
       } else if (selectedFile.isMock) {
         const blob = new Blob(["mock_data"], { type: "image/jpeg" });
         formData.append("file", blob, selectedFile.name);
@@ -446,9 +470,38 @@ export default function CameraView({ t, lang }) {
                 </label>
               </div>
 
-              {/* Mock templates */}
+              {/* ── REAL SAMPLE IMAGE ──────────────────────────────────── */}
               <div className="space-y-2 pt-2">
-                <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Or pick a sample crop leaf:</p>
+                <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">📸 Real Diseased Leaf Sample:</p>
+                <button
+                  id="real-sample-btn"
+                  onClick={selectRealSample}
+                  className="w-full flex items-center gap-4 p-3 rounded-2xl border-2 border-red-500/40
+                    hover:border-red-500/70 bg-red-950/10 hover:bg-red-950/20 transition-all text-left group">
+                  <div className="relative flex-shrink-0">
+                    <img
+                      src={REAL_SAMPLE.imageSrc}
+                      alt="Tomato Early Blight"
+                      className="w-20 h-20 rounded-xl object-cover border border-red-500/30 shadow-lg"
+                    />
+                    <span className="absolute -top-1.5 -right-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full
+                      bg-red-500 text-white shadow">REAL</span>
+                  </div>
+                  <div className="flex-1">
+                    <span className="block font-bold text-zinc-100 text-sm">{REAL_SAMPLE.name}</span>
+                    <span className="block text-xs text-red-300 mt-0.5">{REAL_SAMPLE.desc}</span>
+                    <span className="block text-xs text-zinc-500 mt-1">Click to load &amp; diagnose with AI model</span>
+                  </div>
+                  <div className="flex-shrink-0 p-2 rounded-xl bg-red-500/10 border border-red-500/20
+                    group-hover:bg-red-500/20 transition-all">
+                    <ZoomIn className="w-5 h-5 text-red-400" />
+                  </div>
+                </button>
+              </div>
+
+              {/* Mock templates */}
+              <div className="space-y-2 pt-1">
+                <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Or pick a simulated leaf:</p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
                   {MOCK_TEMPLATES.map((tmpl, idx) => (
                     <button key={idx} onClick={() => selectMockTemplate(tmpl)}
@@ -468,7 +521,9 @@ export default function CameraView({ t, lang }) {
             <div className="space-y-4">
               {/* Preview */}
               <div className="relative rounded-xl overflow-hidden aspect-video border border-emerald-500/20 bg-zinc-900/80 flex items-center justify-center shadow-inner">
-                {selectedFile?.isMock ? (
+                {selectedFile?.isReal ? (
+                  <img src={selectedFile.imageSrc} alt="Real diseased leaf" className="w-full h-full object-contain" />
+                ) : selectedFile?.isMock ? (
                   <div className={`w-full h-full bg-gradient-to-br ${MOCK_TEMPLATES.find(t => t.filename === selectedFile.name)?.previewColor ?? "from-zinc-700 to-zinc-900"} flex flex-col items-center justify-center text-center p-4`}>
                     <span className="text-5xl mb-3">{MOCK_TEMPLATES.find(t => t.filename === selectedFile.name)?.emoji ?? "🌿"}</span>
                     <span className="text-lg font-bold text-zinc-100">{previewUrl}</span>
