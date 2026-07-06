@@ -4,12 +4,46 @@ from typing import Dict, Any, List
 
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "")
 
+def reverse_geocode(latitude: float, longitude: float) -> Dict[str, str]:
+    """
+    Uses Nominatim (OpenStreetMap, free, no API key) to reverse-geocode
+    a coordinate pair into a city + state label for display purposes.
+    Returns {'city': '...', 'state': '...', 'display': '...'}.
+    """
+    try:
+        url = (
+            f"https://nominatim.openstreetmap.org/reverse"
+            f"?lat={latitude}&lon={longitude}&format=json&addressdetails=1"
+        )
+        headers = {"User-Agent": "KrishiMitraAI/1.0"}
+        resp = requests.get(url, headers=headers, timeout=5)
+        if resp.status_code == 200:
+            data = resp.json()
+            address = data.get("address", {})
+            city = (
+                address.get("city")
+                or address.get("town")
+                or address.get("village")
+                or address.get("county")
+                or ""
+            )
+            state = address.get("state", "")
+            display = ", ".join(filter(None, [city, state])) or "Your Location"
+            return {"city": city, "state": state, "display": display}
+    except Exception:
+        pass
+    return {"city": "", "state": "", "display": "Your Location"}
+
+
 def get_weather_data(latitude: float, longitude: float) -> Dict[str, Any]:
     """
     Fetches weather data for a given location.
     If OPENWEATHER_API_KEY is present, queries OpenWeather API.
     Otherwise, returns mock weather data.
     """
+    # Reverse geocode to get human-readable location name (city, state)
+    location = reverse_geocode(latitude, longitude)
+
     # Dynamic values based on latitude/longitude to make mock data realistic
     # e.g., higher latitudes are cooler
     base_temp = 28.0 - abs(latitude - 15.0) * 0.5
@@ -87,4 +121,5 @@ def get_weather_data(latitude: float, longitude: float) -> Dict[str, Any]:
         })
 
     weather_result["alerts"] = alerts
+    weather_result["location"] = location
     return weather_result

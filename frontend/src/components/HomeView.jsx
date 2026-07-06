@@ -4,6 +4,7 @@ import {
   Sprout,
   MapPin,
   Droplet,
+  Droplets,
   Flame,
   Activity,
   Compass,
@@ -16,6 +17,9 @@ import {
   Leaf,
   Sun,
   Wind,
+  Cloud,
+  CloudRain,
+  Thermometer,
   Users,
   BarChart3,
   ShoppingBag,
@@ -25,7 +29,8 @@ import {
   Package,
   Wrench,
   Wheat,
-  ArrowRight
+  ArrowRight,
+  Navigation
 } from "lucide-react";
 import {
   getOfflineFarmer,
@@ -198,6 +203,187 @@ const StarRating = ({ rating }) => (
     <span className="text-xs text-zinc-400 ml-1">{rating}</span>
   </span>
 );
+
+// ── Weather condition → icon + gradient mapping ─────────────────────────────
+const WEATHER_META = {
+  Clear:         { icon: Sun,       grad: "from-amber-500 to-orange-500",  label: "Clear & Sunny" },
+  Sunny:         { icon: Sun,       grad: "from-amber-500 to-orange-500",  label: "Clear & Sunny" },
+  Clouds:        { icon: Cloud,     grad: "from-slate-500 to-zinc-600",    label: "Cloudy" },
+  "Partly Cloudy":{ icon: Cloud,    grad: "from-slate-400 to-zinc-500",    label: "Partly Cloudy" },
+  Rain:          { icon: CloudRain, grad: "from-blue-600 to-indigo-700",   label: "Rainy" },
+  Drizzle:       { icon: CloudRain, grad: "from-blue-400 to-blue-600",     label: "Drizzle" },
+  Thunderstorm:  { icon: CloudRain, grad: "from-purple-700 to-indigo-900",label: "Thunderstorm" },
+  Snow:          { icon: Cloud,     grad: "from-slate-200 to-blue-200",    label: "Snow" },
+  Mist:          { icon: Cloud,     grad: "from-gray-400 to-slate-500",    label: "Misty" },
+  Haze:          { icon: Cloud,     grad: "from-yellow-600 to-amber-700", label: "Hazy" },
+};
+
+// ── Live Weather Widget ─────────────────────────────────────────────────────
+const LiveWeatherWidget = () => {
+  const [wx, setWx] = useState(null);          // full weather payload
+  const [locLabel, setLocLabel] = useState(""); // city, state string
+  const [status, setStatus] = useState("idle"); // idle | detecting | loading | done | error
+  const [errMsg, setErrMsg] = useState("");
+
+  useEffect(() => {
+    setStatus("detecting");
+    if (!navigator.geolocation) {
+      setStatus("error");
+      setErrMsg("Geolocation not supported by your browser.");
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      async ({ coords }) => {
+        const { latitude, longitude } = coords;
+        setStatus("loading");
+        try {
+          const res = await fetch(
+            `${BACKEND_URL}/weather-alerts?latitude=${latitude}&longitude=${longitude}`
+          );
+          if (!res.ok) throw new Error("Backend unavailable");
+          const data = await res.json();
+          setWx(data);
+          setLocLabel(data.location?.display || `${latitude.toFixed(2)}°N, ${longitude.toFixed(2)}°E`);
+          setStatus("done");
+        } catch {
+          // Fallback: generate mock weather based on coords
+          const mockTemp = Math.round(28 - Math.abs(latitude - 15) * 0.5);
+          setWx({
+            current_temp: mockTemp,
+            current_condition: "Sunny",
+            humidity: 65,
+            wind_speed: 12,
+            "7_day_rainfall_sum": 0.8,
+            daily_rain_forecast: [0,0,0,0,0,0,0],
+            source: "Mock (Offline)",
+            location: { display: "Your Location" }
+          });
+          setLocLabel("Your Location");
+          setStatus("done");
+        }
+      },
+      (geoErr) => {
+        // User denied or unavailable — show generic India-avg weather
+        setWx({
+          current_temp: 34,
+          current_condition: "Sunny",
+          humidity: 60,
+          wind_speed: 14,
+          "7_day_rainfall_sum": 1.2,
+          daily_rain_forecast: [0.2, 0, 0.5, 0.3, 0.2, 0, 0],
+          source: "Default (Location denied)",
+          location: { display: "India (avg)" }
+        });
+        setLocLabel("India (avg)");
+        setStatus("done");
+      },
+      { timeout: 8000, maximumAge: 300000 }
+    );
+  }, []);
+
+  const conditionKey = wx?.current_condition || "Sunny";
+  const meta = WEATHER_META[conditionKey] || WEATHER_META["Sunny"];
+  const WeatherIcon = meta.icon;
+  const maxRain = Math.max(...(wx?.daily_rain_forecast || [1]), 1);
+  const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+  if (status === "idle" || status === "detecting") {
+    return (
+      <div className="glass-card rounded-2xl p-5 flex items-center gap-4 border border-blue-500/20">
+        <div className="w-10 h-10 rounded-full border-4 border-blue-400 border-t-transparent animate-spin flex-shrink-0" />
+        <div>
+          <p className="text-sm font-bold text-zinc-200">Detecting your location…</p>
+          <p className="text-xs text-zinc-400">Please allow location access for live weather</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === "loading") {
+    return (
+      <div className="glass-card rounded-2xl p-5 flex items-center gap-4 border border-emerald-500/20">
+        <div className="w-10 h-10 rounded-full border-4 border-emerald-400 border-t-transparent animate-spin flex-shrink-0" />
+        <div>
+          <p className="text-sm font-bold text-zinc-200">Fetching live weather…</p>
+          <p className="text-xs text-zinc-400">Connecting to weather service</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
+      style={{ background: `linear-gradient(135deg, #0a1a2f 0%, #0d1f30 60%, #091a10 100%)` }}>
+      {/* Ambient glow */}
+      <div className={`absolute -top-10 -right-10 w-48 h-48 rounded-full blur-3xl opacity-30 bg-gradient-to-br ${meta.grad} pointer-events-none`} />
+
+      <div className="relative z-10 p-5">
+        {/* Header row */}
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <div className="flex items-center gap-1.5 mb-1">
+              <Navigation className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="text-xs font-bold text-emerald-300 uppercase tracking-wider">Live Weather</span>
+              <span className="ml-1 px-1.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-[10px] text-emerald-300 font-semibold animate-pulse">
+                LIVE
+              </span>
+            </div>
+            <p className="text-sm font-semibold text-zinc-300 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-zinc-400" /> {locLabel}
+            </p>
+          </div>
+          <div className={`p-3 rounded-2xl bg-gradient-to-br ${meta.grad} shadow-lg`}>
+            <WeatherIcon className="w-7 h-7 text-white" />
+          </div>
+        </div>
+
+        {/* Main temp + condition */}
+        <div className="flex items-end gap-4 mb-4">
+          <div>
+            <span className="text-5xl font-extrabold text-white leading-none">{wx.current_temp}°</span>
+            <span className="text-lg text-zinc-400 ml-1">C</span>
+          </div>
+          <div className="pb-1">
+            <p className="text-sm font-bold text-zinc-200">{meta.label}</p>
+            <p className="text-xs text-zinc-500">{wx.source}</p>
+          </div>
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          {[
+            { Icon: Droplets, label: "Humidity", val: `${wx.humidity}%` },
+            { Icon: Wind,     label: "Wind",     val: `${wx.wind_speed} km/h` },
+            { Icon: CloudRain,label: "7-Day Rain",val: `${wx["7_day_rainfall_sum"]}mm` },
+          ].map(({ Icon, label, val }) => (
+            <div key={label} className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex flex-col items-center gap-1">
+              <Icon className="w-4 h-4 text-zinc-400" />
+              <span className="text-xs font-bold text-zinc-200">{val}</span>
+              <span className="text-[10px] text-zinc-500">{label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* 7-day rainfall mini bar chart */}
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-2">7-Day Rainfall Forecast</p>
+          <div className="flex items-end gap-1 h-10">
+            {(wx.daily_rain_forecast || []).slice(0, 7).map((mm, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
+                <div
+                  className="w-full rounded-sm bg-gradient-to-t from-blue-500 to-blue-300 transition-all duration-700"
+                  style={{ height: `${Math.max((mm / maxRain) * 36, mm > 0 ? 4 : 1)}px` }}
+                />
+                <span className="text-[9px] text-zinc-500">{days[i]}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 // ════════════════════════════════════════════════════════════════════════════
 export default function HomeView({ t, lang, isOffline, setIsOffline }) {
@@ -737,7 +923,15 @@ export default function HomeView({ t, lang, isOffline, setIsOffline }) {
         </div>
       </section>
 
-      {/* ── INDIA FARMING STATISTICS ─────────────────────────────────────────── */}
+      {/* ── LIVE WEATHER WIDGET ───────────────────────────────────────────────── */}
+      <section>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-cyan-500 rounded-full" />
+          <h2 className="text-lg font-bold text-zinc-100">Live Weather — Your Location</h2>
+        </div>
+        <LiveWeatherWidget />
+      </section>
+
       <section>
         <div className="flex items-center gap-2 mb-5">
           <div className="w-1 h-6 bg-gradient-to-b from-emerald-400 to-teal-500 rounded-full" />
