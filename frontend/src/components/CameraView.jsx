@@ -17,7 +17,7 @@ import {
   ScanLine
 } from "lucide-react";
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = "https://krishimitra-ai-qga4.onrender.com";
 
 // ── Real sample image (actual photo of a diseased leaf) ─────────────────────
 const REAL_SAMPLE = {

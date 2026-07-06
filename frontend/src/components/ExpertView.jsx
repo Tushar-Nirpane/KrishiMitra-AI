@@ -5,7 +5,7 @@ import {
   BugOff, Sprout, Activity, Filter
 } from "lucide-react";
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = "https://krishimitra-ai-qga4.onrender.com";
 
 const SEVERITY_STYLES = {
   High:    { card: "border-l-red-500",    badge: "bg-red-500/20 text-red-300 border-red-500/30",    dot: "bg-red-500"    },

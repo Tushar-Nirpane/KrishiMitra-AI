@@ -42,7 +42,7 @@ import {
   generateLocalOfflineRecommendations
 } from "../localStorageStore";
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = "https://krishimitra-ai-qga4.onrender.com";
 
 const PRESETS = [
   { name: "Vijayawada Farm (Andhra)", lat: 16.5062, lng: 80.6480 },

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Mic, MicOff, Send, Volume2, User, Sparkles, HelpCircle } from "lucide-react";
 import { getOfflineChatHistory, saveOfflineChatHistory } from "../localStorageStore";
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = "https://krishimitra-ai-qga4.onrender.com";
 
 export default function ChatView({ t, lang, setTab }) {
   const [messages, setMessages] = useState([]);
