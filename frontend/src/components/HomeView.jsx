@@ -220,12 +220,29 @@ const WEATHER_META = {
 
 // ── Live Weather Widget ─────────────────────────────────────────────────────
 const LiveWeatherWidget = () => {
+  const [useLiveLocation, setUseLiveLocation] = useState(false);
   const [wx, setWx] = useState(null);          // full weather payload
   const [locLabel, setLocLabel] = useState(""); // city, state string
   const [status, setStatus] = useState("idle"); // idle | detecting | loading | done | error
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
+    if (!useLiveLocation) {
+      setWx({
+        current_temp: 34,
+        current_condition: "Sunny",
+        humidity: 60,
+        wind_speed: 14,
+        "7_day_rainfall_sum": 1.2,
+        daily_rain_forecast: [0.2, 0, 0.5, 0.3, 0.2, 0, 0],
+        source: "Default (Live Location Off)",
+        location: { display: "India (avg)" }
+      });
+      setLocLabel("India (avg)");
+      setStatus("done");
+      return;
+    }
+
     setStatus("detecting");
     if (!navigator.geolocation) {
       setStatus("error");
@@ -276,10 +293,11 @@ const LiveWeatherWidget = () => {
         });
         setLocLabel("India (avg)");
         setStatus("done");
+        setUseLiveLocation(false); // Reset toggle if denied
       },
       { timeout: 8000, maximumAge: 300000 }
     );
-  }, []);
+  }, [useLiveLocation]);
 
   const conditionKey = wx?.current_condition || "Sunny";
   const meta = WEATHER_META[conditionKey] || WEATHER_META["Sunny"];
@@ -289,11 +307,22 @@ const LiveWeatherWidget = () => {
 
   if (status === "idle" || status === "detecting") {
     return (
-      <div className="glass-card rounded-2xl p-5 flex items-center gap-4 border border-blue-500/20">
-        <div className="w-10 h-10 rounded-full border-4 border-blue-400 border-t-transparent animate-spin flex-shrink-0" />
-        <div>
-          <p className="text-sm font-bold text-zinc-200">Detecting your location…</p>
-          <p className="text-xs text-zinc-400">Please allow location access for live weather</p>
+      <div className="glass-card rounded-2xl p-5 border border-blue-500/20">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-sm font-bold text-zinc-200">Use Live Location for accurate weather?</p>
+          <button 
+            onClick={() => setUseLiveLocation(true)}
+            className="px-3 py-1 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg transition-all"
+          >
+            Allow
+          </button>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-full border-4 border-blue-400 border-t-transparent animate-spin flex-shrink-0" />
+          <div>
+            <p className="text-sm font-bold text-zinc-200">Detecting your location…</p>
+            <p className="text-xs text-zinc-400">Please allow location access if prompted</p>
+          </div>
         </div>
       </div>
     );
@@ -301,11 +330,13 @@ const LiveWeatherWidget = () => {
 
   if (status === "loading") {
     return (
-      <div className="glass-card rounded-2xl p-5 flex items-center gap-4 border border-emerald-500/20">
-        <div className="w-10 h-10 rounded-full border-4 border-emerald-400 border-t-transparent animate-spin flex-shrink-0" />
-        <div>
-          <p className="text-sm font-bold text-zinc-200">Fetching live weather…</p>
-          <p className="text-xs text-zinc-400">Connecting to weather service</p>
+      <div className="glass-card rounded-2xl p-5 border border-emerald-500/20">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-full border-4 border-emerald-400 border-t-transparent animate-spin flex-shrink-0" />
+          <div>
+            <p className="text-sm font-bold text-zinc-200">Fetching live weather…</p>
+            <p className="text-xs text-zinc-400">Connecting to weather service</p>
+          </div>
         </div>
       </div>
     );
@@ -318,6 +349,22 @@ const LiveWeatherWidget = () => {
       <div className={`absolute -top-10 -right-10 w-48 h-48 rounded-full blur-3xl opacity-30 bg-gradient-to-br ${meta.grad} pointer-events-none`} />
 
       <div className="relative z-10 p-5">
+        {/* Toggle switch row */}
+        <div className="flex justify-end mb-2">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <span className="text-[10px] uppercase font-bold text-zinc-400">Live Location</span>
+            <div className={`w-8 h-4 rounded-full transition-colors relative ${useLiveLocation ? 'bg-emerald-500' : 'bg-zinc-700'}`}>
+              <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform ${useLiveLocation ? 'left-[18px]' : 'left-0.5'}`} />
+            </div>
+            <input 
+              type="checkbox" 
+              className="hidden" 
+              checked={useLiveLocation}
+              onChange={(e) => setUseLiveLocation(e.target.checked)}
+            />
+          </label>
+        </div>
+
         {/* Header row */}
         <div className="flex items-start justify-between mb-4">
           <div>
